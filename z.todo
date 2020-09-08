@@ -1,21 +1,26 @@
 Todo: 
+  ☐ better start and end game screens / logic
   ☐ make a starting screen for difficulty
+  ☐ points logic and scoring methods todo list
   ☐ logic for difficulty
   ☐ bring over old design revamped
-  ☐ make readme.md part if info on html
-  ☐ make a better todo
+  ☐ make readme.md part of html info btn
   ☐ clean up unused code
-  ☐ make a PWA list!
 
 Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
-  ☐ all favicons
+  ☐ all favicons/logos
 
 Fix:
-  ☐ make inline fixme comments
+  ☐ make inline fixme/todo comments
+
+WishList:
+  ☐ use cypress to run tests
 
 Archive:
+  ✔ make a lighthouse/PWA list! @done(20-09-08 02:53) @project(Todo)
+  ✔ make a better todo @done(20-09-08 02:13) @project(Todo)
   ✔ clean up unsed files @done(20-09-07 22:20) @project(Todo)
   ✔ fix up readme and links @done(20-09-07 21:28) @project(Todo)
   ✔ make a git and set up for deploy @done(20-09-07 21:47) @project(Todo)
