@@ -1,6 +1,22 @@
 Todo: 
+  ☐ make a starting screen for difficulty
+  ☐ logic for difficulty
+  ☐ bring over old design revamped
+  ☐ make readme.md part if info on html
   ☐ make a better todo
-  ☐ clean up unsed files 
-  ✔ fix up readme and links @done(20-09-07 21:28)
-  ☐ make a git and set up for deploy 
-  ☐ make it PWA!
+  ☐ clean up unused code
+  ☐ make a PWA list!
+
+Lighthouse:
+  ☐ pwa manifest
+  ☐ seo meta and title tag
+  ☐ all favicons
+
+Fix:
+  ☐ make inline fixme comments
+
+Archive:
+  ✔ clean up unsed files @done(20-09-07 22:20) @project(Todo)
+  ✔ fix up readme and links @done(20-09-07 21:28) @project(Todo)
+  ✔ make a git and set up for deploy @done(20-09-07 21:47) @project(Todo)
+  ✔ deploy and test @done(20-09-07 21:47) @project(Todo)
