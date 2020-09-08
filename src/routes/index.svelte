@@ -22,29 +22,29 @@
     monsterStr = 11
   }
 
-  function monsterAtk(node) {
+  function monsterAtk() {
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
     console.log(monsterAtkDmg)
     endTurn()
   }
 
-  function playerAtk(node, atkType) {
+  function playerAtk(atkType) {
     let playerAtkDmg = Math.ceil(Math.random() * playerStr)
     playerAtkDmg < minAtk ? (playerAtkDmg += minAtk) : playerAtkDmg
-    console.log(node.target)
 
     if (atkType === 'strong') {
       if (strongAttacks === 0) {
         return (msg = 'No strong Attacks left')
       } else {
-        ;(playerAtkDmg += strongAtk), strongAttacks--
+        playerAtkDmg += strongAtk
+        strongAttacks--
       }
     }
 
     monsterHp -= playerAtkDmg
     console.log(playerAtkDmg)
-    monsterAtk(node)
+    monsterAtk()
   }
 
   function endTurn() {
@@ -128,18 +128,21 @@
     position: relative;
     height: 30px;
     background: #2d3647;
+    border-radius: 5px;
+    overflow: hidden;
     span {
-      width: 100%;
+      position: absolute;
+      left: 0;
       height: 100%;
-      display: inline-block;
       background: skyblue;
       transition: width 0.5s ease-out;
+      z-index: -0;
     }
     h3 {
-      position: absolute;
-      left: 45%;
+      position: relative;
       margin: 0;
       padding: 5px 0;
+      display: inline-block;
       color: white;
       z-index: 99;
     }
