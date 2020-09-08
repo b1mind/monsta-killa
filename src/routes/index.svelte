@@ -1,8 +1,8 @@
 <script>
   const minAtk = 4
   const strongAtk = 7
-  const healStr = 14
   const playerStr = 10
+  let healStr = 14
   let playerHp = 100
   let monsterStr = 11
   let monsterHp = 100
@@ -11,26 +11,28 @@
   let msg = 'Make your move'
   let round = 0
 
+  //> Function junction whats the malfunction
   function reset() {
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
     heals = 1
+    healStr = 14
     round = 0
     monsterStr = 11
-    msg = 'Try again'
   }
 
-  function monsterAtk() {
+  function monsterAtk(node) {
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
     console.log(monsterAtkDmg)
     endTurn()
   }
 
-  function playerAtk(atkType) {
+  function playerAtk(node, atkType) {
     let playerAtkDmg = Math.ceil(Math.random() * playerStr)
     playerAtkDmg < minAtk ? (playerAtkDmg += minAtk) : playerAtkDmg
+    console.log(node.target)
 
     if (atkType === 'strong') {
       if (strongAttacks === 0) {
@@ -42,7 +44,7 @@
 
     monsterHp -= playerAtkDmg
     console.log(playerAtkDmg)
-    monsterAtk()
+    monsterAtk(node)
   }
 
   function endTurn() {
@@ -50,7 +52,7 @@
       msg = 'Player Wins'
       endRound(false)
     } else if (playerHp <= 0) {
-      msg = 'Monster Ate Player'
+      msg = 'Monster Ate Player, Try Again'
       endRound(true)
     } else {
       msg = 'Make your move'
@@ -69,6 +71,7 @@
         heals++
         monsterStr++
         strongAttacks += 2
+        healStr += 10
       }
     }
   }
@@ -83,17 +86,28 @@
   }
 </script>
 
+<!-- //> content is king -->
+<!-- //Todo remake old design and bring in -->
 <main>
   <h2 class="headline">Monster Hunter</h2>
   <p>{msg}</p>
   <h3>Round: {round}</h3>
 
-  <label for="monsterHp"> {monsterHp}hp Monster </label>
-  <progress id="monsterHp" max="100" value={monsterHp} />
+  <!-- //Todo figure best way to animate bars and health nums -->
+  <h2>Monster</h2>
+  <div class="progress-bar">
+    <h3>{monsterHp}hp</h3>
+    <span style="width: {monsterHp}%" />
+  </div>
+  <!-- //?other way then animate with gsap? 
+    <progress id="monsterHp" max="100" value={monsterHp} /> 
+  -->
   <br />
-
-  <label for="playerHp">{playerHp}hp Player</label>
-  <progress id="playerHp" max="100" value={playerHp} />
+  <h2>Player</h2>
+  <div class="progress-bar">
+    <h3>{playerHp}hp</h3>
+    <span style="width: {playerHp}%" />
+  </div>
   <br />
 
   <button on:click={playerAtk}>Attack</button>
@@ -101,7 +115,8 @@
   <button on:click={healPlayer}>Heal {heals}</button>
 </main>
 
-<style>
+<style lang="scss">
+  //> make it look good
   main {
     max-width: 340px;
     margin: 0 auto;
@@ -109,8 +124,25 @@
     text-align: center;
   }
 
-  progress {
+  .progress-bar {
+    position: relative;
     height: 30px;
+    background: #2d3647;
+    span {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      background: skyblue;
+      transition: width 0.5s ease-out;
+    }
+    h3 {
+      position: absolute;
+      left: 45%;
+      margin: 0;
+      padding: 5px 0;
+      color: white;
+      z-index: 99;
+    }
   }
 
   .headline {
