@@ -1,19 +1,19 @@
-<script>
+<!--<script>
   import Nav from '../components/Nav.svelte'
   import Footer from '../components/Footer.svelte'
   import Header from '../components/Header.svelte'
   export let segment
-</script>
+</script>-->
 
-<Header>
+<!-- <Header>
   <Nav {segment} />
-</Header>
+</Header> -->
 
 <main>
   <slot />
 </main>
 
-<Footer />
+<!-- <Footer /> -->
 
 <style lang="scss">
   main {
