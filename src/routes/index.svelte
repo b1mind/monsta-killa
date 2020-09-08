@@ -1,4 +1,5 @@
 <script>
+  import { fly } from 'svelte/transition'
   const minAtk = 4
   const strongAtk = 7
   const playerStr = 10
@@ -10,9 +11,11 @@
   let heals = 1
   let msg = 'Make your move'
   let round = 0
+  let endGame = false
 
   //> Function junction whats the malfunction
   function reset() {
+    endGame = false
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
@@ -61,7 +64,7 @@
 
   function endRound(end) {
     if (end) {
-      return reset()
+      return (endGame = true)
     } else {
       round++
       playerHp = 100
@@ -87,36 +90,46 @@
 </script>
 
 <!-- //> content is king -->
-<!-- //Todo remake old design and bring in -->
 <main>
-  <h2 class="headline">Monster Hunter</h2>
+  <h1 class="headline">Monster Hunter</h1>
   <p>{msg}</p>
   <h3>Round: {round}</h3>
 
   <!-- //Todo figure best way to animate bars and health nums -->
-  <h2>Monster</h2>
+  <h3>Monster</h3>
   <div class="progress-bar">
-    <h3>{monsterHp}hp</h3>
+    <h3>{monsterHp} ♥</h3>
     <span style="width: {monsterHp}%" />
   </div>
   <!-- //?other way then animate with gsap? 
     <progress id="monsterHp" max="100" value={monsterHp} /> 
   -->
   <br />
-  <h2>Player</h2>
+  <h3>Player</h3>
   <div class="progress-bar">
-    <h3>{playerHp}hp</h3>
+    <h3>{playerHp} ♥</h3>
     <span style="width: {playerHp}%" />
   </div>
   <br />
 
-  <button on:click={playerAtk}>Attack</button>
-  <button on:click={() => playerAtk('strong')}>Fire {strongAttacks}</button>
-  <button on:click={healPlayer}>Heal {heals}</button>
+  {#if endGame}
+    <div class="retry" transition:fly={{ y: -50 }}>
+      <button on:click={reset}>Retry</button>
+    </div>
+  {:else if !endGame}
+    <div class="controls" transition:fly={{ y: -50 }}>
+      <button on:click={playerAtk}>Attack</button>
+      <button on:click={() => playerAtk('strong')}>Fire {strongAttacks}</button>
+      <button on:click={healPlayer}>Heal {heals}</button>
+    </div>
+  {/if}
+
+  <!-- kill the king -->
 </main>
 
 <style lang="scss">
   //> make it look good
+
   main {
     max-width: 340px;
     margin: 0 auto;
@@ -144,6 +157,7 @@
       padding: 5px 0;
       display: inline-block;
       color: white;
+      font-weight: 700;
       z-index: 99;
     }
   }
