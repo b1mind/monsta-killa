@@ -1,8 +1,11 @@
 <script>
-  import { fly } from 'svelte/transition'
+  import { slide } from 'svelte/transition'
+
   const minAtk = 4
   const strongAtk = 7
   const playerStr = 10
+
+  //todo make a object for gameOptions+reset?
   let healStr = 14
   let playerHp = 100
   let monsterStr = 11
@@ -101,9 +104,11 @@
     <h3>{monsterHp} ♥</h3>
     <span style="width: {monsterHp}%" />
   </div>
+
   <!-- //?other way then animate with gsap? 
     <progress id="monsterHp" max="100" value={monsterHp} /> 
   -->
+
   <br />
   <h3>Player</h3>
   <div class="progress-bar">
@@ -113,11 +118,11 @@
   <br />
 
   {#if endGame}
-    <div class="retry" transition:fly={{ y: -50 }}>
+    <div class="retry" transition:slide={{ y: -50 }}>
       <button on:click={reset}>Retry</button>
     </div>
   {:else if !endGame}
-    <div class="controls" transition:fly={{ y: -50 }}>
+    <div class="controls" transition:slide={{ y: -50 }}>
       <button on:click={playerAtk}>Attack</button>
       <button on:click={() => playerAtk('strong')}>Fire {strongAttacks}</button>
       <button on:click={healPlayer}>Heal {heals}</button>
