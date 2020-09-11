@@ -12,7 +12,7 @@
   let monsterHp = 100
   let strongAttacks = 3
   let heals = 1
-  let msg = 'Make your move'
+  let msg = `Make your move`
   let round = 0
   let endGame = false
 
@@ -87,7 +87,6 @@
     if (heals <= 0) return (msg = 'You are out of heals')
     playerHp += healPwr
     heals--
-    console.log(healPwr)
     monsterAtk()
   }
 </script>
@@ -104,12 +103,12 @@
     <h3>{monsterHp} ♥</h3>
     <span style="width: {monsterHp}%" />
   </div>
+  <br />
 
   <!-- //?other way then animate with gsap? 
     <progress id="monsterHp" max="100" value={monsterHp} /> 
   -->
 
-  <br />
   <h3>Player</h3>
   <div class="progress-bar">
     <h3>{playerHp} ♥</h3>
@@ -118,7 +117,7 @@
   <br />
 
   {#if endGame}
-    <div class="retry" transition:slide={{ y: -50 }}>
+    <div class="retry" id="test" transition:slide={{ y: -50 }}>
       <button on:click={reset}>Retry</button>
     </div>
   {:else if !endGame}
