@@ -5,16 +5,17 @@ Todo:
   ☐ logic for difficulty
   ☐ points logic and scoring methods todo list
   ☐ make readme.md part of html info btn
-  ☐ bring over old design revamped
+  ✘ bring over old design revamped @cancelled(20-09-12 00:26)
+  ☐ remake design in figma
   ☐ clean up unused code
 
 Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
   ☐ all favicons/logos
-
+ 
 Fix:
-  ☐ make inline fixme/todo comments
+  ✔ make inline fixme/todo comments @done(20-09-12 00:46)
 
 WishList:
   ☐ use cypress to run tests

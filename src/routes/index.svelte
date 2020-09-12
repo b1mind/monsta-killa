@@ -65,6 +65,7 @@
     }
   }
 
+  //todo refactor for difficulty
   function endRound(end) {
     if (end) {
       return (endGame = true)
@@ -132,8 +133,6 @@
 </main>
 
 <style lang="scss">
-  //> make it look good
-
   main {
     max-width: 340px;
     margin: 0 auto;
@@ -141,6 +140,7 @@
     text-align: center;
   }
 
+  //todo make me look better
   .progress-bar {
     position: relative;
     height: 30px;
