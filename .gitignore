@@ -6,3 +6,5 @@ yarn-error.log
 /__sapper__/
 /scripts/deploy.js
 /scripts/gsap-bonus.tgz
+.vscode
+.env
