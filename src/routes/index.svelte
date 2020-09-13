@@ -66,6 +66,7 @@
   }
 
   //todo refactor for difficulty
+  //todo max limit of 9 for strongAttacks
   function endRound(end) {
     if (end) {
       return (endGame = true)
@@ -75,10 +76,12 @@
       monsterHp = 100
       strongAttacks++
       if (round % 5 === 0) {
-        heals++
         monsterStr++
         strongAttacks += 2
         healStr += 10
+      }
+      if (round % 10 === 0) {
+        heals++
       }
     }
   }
@@ -123,7 +126,7 @@
     </div>
   {:else if !endGame}
     <div class="controls" transition:slide={{ y: -50 }}>
-      <button on:click={playerAtk}>Attack</button>
+      <button on:click={playerAtk}>Attack </button>
       <button on:click={() => playerAtk('strong')}>Fire {strongAttacks}</button>
       <button on:click={healPlayer}>Heal {heals}</button>
     </div>
@@ -153,8 +156,9 @@
       height: 100%;
       background: skyblue;
       transition: width 0.5s ease-out;
-      z-index: -0;
+      z-index: 0;
     }
+
     h3 {
       position: relative;
       margin: 0;
