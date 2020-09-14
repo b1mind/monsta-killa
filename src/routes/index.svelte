@@ -5,7 +5,7 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //todo make a object for gameOptions+reset?
+  //todo make one object for gameOptions+reset?
   let healStr = 14
   let playerHp = 100
   let monsterStr = 11
@@ -28,10 +28,11 @@
     monsterStr = 11
   }
 
+  //todo refactor for difficulty
   function monsterAtk() {
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
-    console.log(monsterAtkDmg)
+    console.log(monsterAtkDmg, playerHp)
     endTurn()
   }
 
@@ -65,8 +66,6 @@
     }
   }
 
-  //todo refactor for difficulty
-  //todo max limit of 9 for strongAttacks
   function endRound(end) {
     if (end) {
       return (endGame = true)
@@ -74,10 +73,10 @@
       round++
       playerHp = 100
       monsterHp = 100
-      strongAttacks++
+      strongAttacks >= 9 ? false : strongAttacks++
       if (round % 5 === 0) {
         monsterStr++
-        strongAttacks += 2
+        strongAttacks >= 9 ? false : (strongAttacks += 2)
         healStr += 10
       }
       if (round % 10 === 0) {
