@@ -16,6 +16,9 @@
   let round = 0
   let endGame = false
 
+  let key
+  let keyCode
+
   //> Function junction whats the malfunction
   function reset() {
     endGame = false
@@ -26,6 +29,7 @@
     healStr = 14
     round = 0
     monsterStr = 11
+    msg = 'Try harder! Attack!'
   }
 
   //todo refactor for difficulty
@@ -54,10 +58,32 @@
     monsterAtk()
   }
 
+  //todo add animations to buttons and key press
+  function handleKeyDown(event) {
+    key = event.key
+    keyCode = event.keyCode
+
+    keyCode === 82 ? reset() : false
+
+    if (endGame === true) {
+      return
+    }
+
+    if (keyCode == 74) {
+      playerAtk()
+    } else if (keyCode === 75) {
+      playerAtk('strong')
+    } else if (keyCode === 72) {
+      healPlayer()
+    }
+  }
+
   function endTurn() {
     if (monsterHp <= 0) {
       msg = 'Player Wins'
       endRound(false)
+
+      //is player dead???
     } else if (playerHp <= 0) {
       msg = 'Monster Ate Player, Try Again'
       endRound(true)
@@ -74,11 +100,13 @@
       playerHp = 100
       monsterHp = 100
       strongAttacks >= 9 ? false : strongAttacks++
+
       if (round % 5 === 0) {
         monsterStr++
         strongAttacks >= 9 ? false : (strongAttacks += 2)
         healStr += 10
       }
+
       if (round % 10 === 0) {
         heals++
       }
@@ -94,7 +122,8 @@
   }
 </script>
 
-<!-- //> content is king -->
+<svelte:window on:keydown={handleKeyDown} />
+
 <main>
   <h1 class="headline">Monster Hunter</h1>
   <p>{msg}</p>
@@ -107,10 +136,6 @@
     <span style="width: {monsterHp}%" />
   </div>
   <br />
-
-  <!-- //?other way then animate with gsap? 
-    <progress id="monsterHp" max="100" value={monsterHp} /> 
-  -->
 
   <h3>Player</h3>
   <div class="progress-bar">
@@ -130,8 +155,6 @@
       <button on:click={healPlayer}>Heal {heals}</button>
     </div>
   {/if}
-
-  <!-- kill the king -->
 </main>
 
 <style lang="scss">
@@ -157,7 +180,6 @@
       transition: width 0.5s ease-out;
       z-index: 0;
     }
-
     h3 {
       position: relative;
       margin: 0;
