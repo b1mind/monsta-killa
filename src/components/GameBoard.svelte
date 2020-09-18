@@ -5,9 +5,6 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //fixme make reactive
-  $: battleLogs = []
-
   const diff = {
     1: {
       name: 'easy',
@@ -41,6 +38,7 @@
   let endGame = false
   let highScore = 0
   let keyCode
+  let battleLogs = []
 
   function initStart(mode) {
     ;({ healStr, monsterStr, heals } = diff[mode])
@@ -50,6 +48,7 @@
   function reset() {
     highScore = round >= highScore ? round : highScore
     endGame = false
+    battleLogs = []
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
@@ -64,7 +63,7 @@
       atk: atk,
       hp: hp,
     }
-    battleLogs.push(logEvent)
+    battleLogs = [logEvent, ...battleLogs]
   }
 
   function monsterAtk() {
@@ -190,7 +189,7 @@
   {/if}
 
   {#each battleLogs as battleLog}
-    <p>{battleLog.atk} / {battleLog.hp}</p>
+    <p>{battleLog.event} - {battleLog.atk} / {battleLog.hp}</p>
   {/each}
 </div>
 
