@@ -5,32 +5,54 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //todo make one object for gameOptions+reset?
+  //todo make store for game settings/logs
+  const diff = {
+    1: {
+      healStr: 16,
+      monsterStr: 9,
+      heals: 2,
+    },
+    2: {
+      healStr: 14,
+      monsterStr: 11,
+      heals: 1,
+    },
+    3: {
+      healStr: 16,
+      monsterStr: 14,
+      heals: 0,
+    },
+  }
+
+  export let gameMode
   let healStr = 14
   let playerHp = 100
   let monsterStr = 11
   let monsterHp = 100
   let strongAttacks = 3
   let heals = 1
-  export let msg = `Make your move`
+  let msg = `Make your move`
   let round = 0
   let endGame = false
   let keyCode
 
-  //> Function junction whats the malfunction
+  function initStart(mode) {
+    ;({ healStr, monsterStr, heals } = diff[mode])
+  }
+
+  initStart(gameMode)
+
+  //todo maybe make a chance to change mode
   function reset() {
     endGame = false
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
-    heals = 1
-    healStr = 14
     round = 0
-    monsterStr = 11
     msg = 'Try harder! Attack!'
+    initStart(gameMode)
   }
 
-  //todo refactor for difficulty
   function monsterAtk() {
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
@@ -56,7 +78,15 @@
     monsterAtk()
   }
 
-  //todo add animations to buttons and key press
+  function healPlayer() {
+    const healPwr = Math.ceil(Math.random() * 10 + healStr)
+    if (heals <= 0) return (msg = 'You are out of heals')
+    playerHp += healPwr
+    heals--
+    monsterAtk()
+  }
+
+  //todo add animations to buttons and key press?
   function handleKeyDown(event) {
     keyCode = event.keyCode
 
@@ -106,19 +136,11 @@
       }
     }
   }
-
-  function healPlayer() {
-    const healPwr = Math.ceil(Math.random() * 10 + healStr)
-    if (heals <= 0) return (msg = 'You are out of heals')
-    playerHp += healPwr
-    heals--
-    monsterAtk()
-  }
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<div>
+<div id="gameBoard" gameMode>
   <p>{msg}</p>
   <h2>Round: {round}</h2>
   <h3>Monster</h3>

@@ -2,7 +2,7 @@
   import GameBoard from '../components/GameBoard.svelte'
 
   let onBoard = true
-  let gameMode = 0
+  let gameMode = 2
 
   function playGame() {
     onBoard = false
@@ -29,7 +29,7 @@
 
     <button on:click={playGame}>Play! {gameMode}</button>
   {:else}
-    <GameBoard />
+    <GameBoard {gameMode} />
   {/if}
 </main>
 
