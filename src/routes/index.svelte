@@ -20,14 +20,14 @@
         <input type="radio" bind:group={gameMode} value={1} /> Easy
       </label>
       <label>
-        <input type="radio" bind:group={gameMode} value={2} /> Medium
+        <input type="radio" bind:group={gameMode} value={2} /> Normal
       </label>
       <label>
         <input type="radio" bind:group={gameMode} value={3} /> Hard
       </label>
     </div>
 
-    <button on:click={playGame}>Play! {gameMode}</button>
+    <button on:click={playGame}>Play!</button>
   {:else}
     <GameBoard {gameMode} />
   {/if}

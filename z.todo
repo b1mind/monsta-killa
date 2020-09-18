@@ -1,12 +1,12 @@
 Todo: 
-  ☐ make msg store? 
-  ☐ make stats a store or object?
-  ☐ write store to local storage for high score and onBoarding
-  ☐ best round
+  ☐ create and write logs of atks and wins
+  ☐ logic for points and scoring methods
+  ✔ best round @done(20-09-17 23:29)
   ☐ top score (different than rounds?)
   ☐ option to change difficulty on reset
-  ✔ logic for difficulty @done(20-09-17 21:39)
-  ☐ logic for points and scoring methods
+  ☐ make stats a store or object?
+  ☐ make msg store? 
+  ☐ write store to local storage for high score and onBoarding
   ☐ make readme.md part of html info btn
   ☐ remake design in figma
   ☐ make css defaults > scss global?
@@ -21,6 +21,7 @@ WishList:
   ☐ use cypress to run tests
 
 Archive:
+  ✔ logic for difficulty @done(20-09-17 21:39) @project(Todo)
   ✔ make a starting screen for difficulty @done(20-09-17 00:02) @project(Todo)
   ✔ keybinds for desktop @done(20-09-15 17:49) @project(Todo)
   ✘ bring over old design revamped @cancelled(20-09-12 00:26) @project(Todo)

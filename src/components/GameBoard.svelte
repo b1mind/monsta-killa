@@ -8,16 +8,19 @@
   //todo make store for game settings/logs
   const diff = {
     1: {
+      name: 'easy',
       healStr: 16,
       monsterStr: 9,
       heals: 2,
     },
     2: {
+      name: 'normal',
       healStr: 14,
       monsterStr: 11,
       heals: 1,
     },
     3: {
+      name: 'hard',
       healStr: 16,
       monsterStr: 14,
       heals: 0,
@@ -25,25 +28,25 @@
   }
 
   export let gameMode
-  let healStr = 14
+  let monsterStr
+  let healStr
+  let heals
   let playerHp = 100
-  let monsterStr = 11
   let monsterHp = 100
   let strongAttacks = 3
-  let heals = 1
   let msg = `Make your move`
   let round = 0
   let endGame = false
+  let highScore = 0
   let keyCode
 
   function initStart(mode) {
     ;({ healStr, monsterStr, heals } = diff[mode])
   }
 
-  initStart(gameMode)
-
   //todo maybe make a chance to change mode
   function reset() {
+    highScore = round >= highScore ? round : highScore
     endGame = false
     playerHp = 100
     monsterHp = 100
@@ -136,13 +139,16 @@
       }
     }
   }
+
+  initStart(gameMode)
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
 <div id="gameBoard" gameMode>
+  <h3>{diff[gameMode].name}</h3>
   <p>{msg}</p>
-  <h2>Round: {round}</h2>
+  <h2>Round: {round} Best: {highScore}</h2>
   <h3>Monster</h3>
   <div class="progress-bar">
     <h3>{monsterHp} ♥</h3>
