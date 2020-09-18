@@ -5,7 +5,9 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //todo make store for game settings/logs
+  //fixme make reactive
+  $: battleLogs = []
+
   const diff = {
     1: {
       name: 'easy',
@@ -34,7 +36,7 @@
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
-  let msg = `Make your move`
+  let msg = `Attack to start!`
   let round = 0
   let endGame = false
   let highScore = 0
@@ -44,7 +46,7 @@
     ;({ healStr, monsterStr, heals } = diff[mode])
   }
 
-  //todo maybe make a chance to change mode
+  //todo make a chance to change mode
   function reset() {
     highScore = round >= highScore ? round : highScore
     endGame = false
@@ -56,10 +58,19 @@
     initStart(gameMode)
   }
 
+  function writeLog(e, atk, hp) {
+    let logEvent = {
+      event: e,
+      atk: atk,
+      hp: hp,
+    }
+    battleLogs.push(logEvent)
+  }
+
   function monsterAtk() {
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
-    console.log(monsterAtkDmg, playerHp)
+    writeLog('monster attacks', monsterAtkDmg, playerHp)
     endTurn()
   }
 
@@ -77,7 +88,7 @@
     }
 
     monsterHp -= playerAtkDmg
-    console.log(playerAtkDmg)
+    writeLog('player attacks', playerAtkDmg, monsterHp)
     monsterAtk()
   }
 
@@ -86,6 +97,7 @@
     if (heals <= 0) return (msg = 'You are out of heals')
     playerHp += healPwr
     heals--
+    writeLog('player heals', healPwr, playerHp)
     monsterAtk()
   }
 
@@ -109,13 +121,15 @@
 
   function endTurn() {
     if (monsterHp <= 0) {
-      msg = 'Player Wins'
+      msg = `Player Wins Round ${round}`
+      battleLogs = []
       endRound(false)
     } else if (playerHp <= 0) {
-      msg = 'Monster Ate Player, Try Again'
+      msg = `Monster Ate Player, Try Again`
       endRound(true)
     } else {
-      msg = 'Make your move'
+      msg = `Make your next move`
+      console.log(battleLogs)
     }
   }
 
@@ -174,10 +188,15 @@
       <button on:click={healPlayer}>Heal {heals}</button>
     </div>
   {/if}
+
+  {#each battleLogs as battleLog}
+    <p>{battleLog.atk} / {battleLog.hp}</p>
+  {/each}
 </div>
 
 <style lang="scss">
   //todo make me look better
+
   .progress-bar {
     position: relative;
     height: 30px;

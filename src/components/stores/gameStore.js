@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 
+//todo make store for game settings/logs
 const ExampleStore = writable([
   {
     id: 1,

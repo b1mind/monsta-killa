@@ -1,8 +1,9 @@
 Todo: 
+  ✔ started logic for logs @done(20-09-18 01:55)
   ☐ create and write logs of atks and wins
   ☐ logic for points and scoring methods
   ✔ best round @done(20-09-17 23:29)
-  ☐ top score (different than rounds?)
+  ☐ top score 
   ☐ option to change difficulty on reset
   ☐ make stats a store or object?
   ☐ make msg store? 
@@ -12,6 +13,9 @@ Todo:
   ☐ make css defaults > scss global?
   ☐ clean up unused code
   
+FixMe:
+  ☐ reativity for logs/ui
+
 Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
