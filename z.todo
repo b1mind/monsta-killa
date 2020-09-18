@@ -1,21 +1,14 @@
 Todo: 
-  ✔ started logic for logs @done(20-09-18 01:55)
-  ☐ create and write logs of atks and wins
-  ☐ logic for points and scoring methods
-  ✔ best round @done(20-09-17 23:29)
-  ☐ top score 
+  ☐ try event delegation for controls
   ☐ option to change difficulty on reset
-  ☐ make stats a store or object?
-  ☐ make msg store? 
+  ☐ Create and use Store: settings,logs,onboard 
   ☐ write store to local storage for high score and onBoarding
   ☐ make readme.md part of html info btn
   ☐ remake design in figma
   ☐ make css defaults > scss global?
+  ☐ start to make purty 
   ☐ clean up unused code
   
-FixMe:
-  ☐ reativity for logs/ui
-
 Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
@@ -25,6 +18,12 @@ WishList:
   ☐ use cypress to run tests
 
 Archive:
+  ✔ create and write logs of atks and wins @done(20-09-18 04:16) @project(Todo)
+  ✔ started logic for logs @done(20-09-18 01:55) @project(Todo)
+  ✘ logic for points and scoring methods @cancelled(20-09-18 04:13) @project(Todo)
+  ✔ best round @done(20-09-17 23:29) @project(Todo)
+  ✘ top score @cancelled(20-09-18 04:13) @project(Todo)
+  ✔ reativity for logs/ui @done(20-09-18 04:07) @project(FixMe)
   ✔ logic for difficulty @done(20-09-17 21:39) @project(Todo)
   ✔ make a starting screen for difficulty @done(20-09-17 00:02) @project(Todo)
   ✔ keybinds for desktop @done(20-09-15 17:49) @project(Todo)
