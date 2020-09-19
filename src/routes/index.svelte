@@ -1,5 +1,6 @@
 <script>
   import GameBoard from '../components/GameBoard.svelte'
+  import aMsg from '../components/stores/gameStore'
 
   let onBoard = true
   let gameMode = 2
@@ -11,10 +12,9 @@
 
 <main>
   <h1 class="headline">Monsta Killa</h1>
+  <p>{$aMsg}</p>
 
   {#if onBoard}
-    <p>Welcome, please pick your difficulty</p>
-
     <div class="difficulty">
       <label>
         <input type="radio" bind:group={gameMode} value={1} /> Easy

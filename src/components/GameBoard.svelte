@@ -1,5 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
+  import aMsg from '../components/stores/gameStore'
 
   const minAtk = 4
   const strongAtk = 7
@@ -33,7 +34,7 @@
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
-  let msg = `Attack to start!`
+  aMsg.set(`Attack to start!`)
   let round = 0
   let endGame = false
   let highScore = 0
@@ -54,7 +55,7 @@
     monsterHp = 100
     strongAttacks = 3
     round = 0
-    msg = 'Try harder! Attack!'
+    aMsg.set('Try harder! Attack!')
     ;({ healStr, monsterStr, heals } = diff[gameMode])
   }
 
@@ -80,7 +81,8 @@
 
     if (atkType === 'strong') {
       if (strongAttacks === 0) {
-        return (msg = 'No strong Attacks left')
+        aMsg.set('No strong Attacks left')
+        return
       } else {
         playerAtkDmg += strongAtk
         strongAttacks--
@@ -94,7 +96,7 @@
 
   function healPlayer() {
     const healPwr = Math.ceil(Math.random() * 10 + healStr)
-    if (heals <= 0) return (msg = 'You are out of heals')
+    if (heals <= 0) return aMsg.set('You are out of heals')
     playerHp += healPwr
     heals--
     writeLog('player heals', healPwr, playerHp)
@@ -106,7 +108,7 @@
     keyCode = event.keyCode
 
     if (endGame === true) {
-      keyCode === 82 ? reset() : false
+      keyCode === 82 ? reset() : aMsg.set(`press R to reset game`)
       return
     }
 
@@ -116,20 +118,21 @@
       playerAtk('strong')
     } else if (keyCode === 72) {
       healPlayer()
+    } else {
+      aMsg.set(`use H heal, J atk, K fire, R restart`)
     }
   }
 
   function endTurn() {
     if (monsterHp <= 0) {
-      msg = `Player Wins Round ${round}`
+      aMsg.set(`Player Wins Round ${round}`)
       battleLogs = []
       endRound(false)
     } else if (playerHp <= 0) {
-      msg = `Monster Ate Player, Try Again`
+      aMsg.set(`Monster Ate Player, Try Again`)
       endRound(true)
     } else {
-      msg = `Make your next move`
-      console.log(battleLogs)
+      aMsg.set(`Make your next move`)
     }
   }
 
@@ -161,7 +164,6 @@
 
 <div id="gameBoard" gameMode>
   <h3>{diff[gameMode].name}</h3>
-  <p>{msg}</p>
   <h2>Round: {round} Best: {highScore}</h2>
   <h3>Monster</h3>
   <div class="progress-bar">

@@ -1,15 +1,8 @@
 import { writable } from 'svelte/store'
 
-//todo make store for game settings/logs
-const ExampleStore = writable([
-  {
-    id: 1,
-    question: 'Svelte or React?',
-    answerA: 'Svelte',
-    answerB: 'React',
-    votesA: 29,
-    votesB: 20,
-  },
-])
+let aMsg = 'Welcome, pick your difficulty'
 
-export default ExampleStore
+//todo make store for game settings/logs
+const { subscribe, set } = writable(aMsg)
+
+export default { subscribe, set }

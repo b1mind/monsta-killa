@@ -1,9 +1,9 @@
 Todo: 
   ☐ try event delegation for controls
   ☐ option to change difficulty on reset
+  ✔ store for msg @done(20-09-19 16:51)
   ☐ Create and use Store: settings,logs,onboard 
   ☐ write store to local storage for high score and onBoarding
-  ☐ make readme.md part of html info btn
   ☐ remake design in figma
   ☐ make css defaults > scss global?
   ☐ start to make purty 
@@ -13,8 +13,10 @@ Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
   ☐ all favicons/logos
-
+  
 WishList:
+  ☐ make keypress animate/press buttons
+  ☐ make readme.md part of html info btn
   ☐ use cypress to run tests
 
 Archive:
