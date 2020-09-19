@@ -27,9 +27,9 @@
   }
 
   export let gameMode
-  let monsterStr
+  /*   let monsterStr
   let healStr
-  let heals
+  let heals */
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
@@ -40,9 +40,10 @@
   let keyCode
   let battleLogs = []
 
-  function initStart(mode) {
+  let { healStr, monsterStr, heals } = diff[gameMode]
+  /*   function initStart(mode) {
     ;({ healStr, monsterStr, heals } = diff[mode])
-  }
+  } */
 
   //todo make a chance to change mode
   function reset() {
@@ -54,7 +55,7 @@
     strongAttacks = 3
     round = 0
     msg = 'Try harder! Attack!'
-    initStart(gameMode)
+    ;({ healStr, monsterStr, heals } = diff[gameMode])
   }
 
   function writeLog(e, atk, hp) {
@@ -153,7 +154,7 @@
     }
   }
 
-  initStart(gameMode)
+  // initStart(gameMode)
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
@@ -189,7 +190,7 @@
   {/if}
 
   {#each battleLogs as battleLog}
-    <p>{battleLog.event} - {battleLog.atk} / {battleLog.hp}</p>
+    <p>{battleLog.event} | {battleLog.atk}</p>
   {/each}
 </div>
 

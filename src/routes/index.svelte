@@ -10,7 +10,7 @@
 </script>
 
 <main>
-  <h1 class="headline">Monster Hunter</h1>
+  <h1 class="headline">Monsta Killa</h1>
 
   {#if onBoard}
     <p>Welcome, please pick your difficulty</p>
