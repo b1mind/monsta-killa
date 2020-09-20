@@ -1,8 +1,14 @@
 import { writable } from 'svelte/store'
 
-let aMsg = 'Welcome, pick your difficulty'
+function changeMsg() {
+  const { subscribe, set } = writable(`Welcome, please pick a difficulty`)
+  return { subscribe, set }
+}
 
-//todo make store for game settings/logs
-const { subscribe, set } = writable(aMsg)
+function changeMode() {
+  const { subscribe, set } = writable(2)
+  return { subscribe, set }
+}
 
-export default { subscribe, set }
+export const aMsg = changeMsg()
+export const aMode = changeMode()

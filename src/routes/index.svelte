@@ -1,9 +1,12 @@
 <script>
   import GameBoard from '../components/GameBoard.svelte'
-  import aMsg from '../components/stores/gameStore'
+  import { aMsg, aMode } from '../components/stores/gameStore'
 
   let onBoard = true
-  let gameMode = 2
+
+  function setMode(e) {
+    aMode.set(e.currentTarget.value)
+  }
 
   function playGame() {
     onBoard = false
@@ -13,23 +16,28 @@
 <main>
   <h1 class="headline">Monsta Killa</h1>
   <p>{$aMsg}</p>
-
   {#if onBoard}
     <div class="difficulty">
       <label>
-        <input type="radio" bind:group={gameMode} value={1} /> Easy
+        <input type="radio" on:change={setMode} name="gameMode" value="1" /> Easy
       </label>
       <label>
-        <input type="radio" bind:group={gameMode} value={2} /> Normal
+        <input
+          type="radio"
+          on:change={setMode}
+          name="gameMode"
+          value="2"
+          checked
+        /> Normal
       </label>
       <label>
-        <input type="radio" bind:group={gameMode} value={3} /> Hard
+        <input type="radio" on:change={setMode} name="gameMode" value="3" /> Hard
       </label>
     </div>
 
     <button on:click={playGame}>Play!</button>
   {:else}
-    <GameBoard {gameMode} />
+    <GameBoard />
   {/if}
 </main>
 

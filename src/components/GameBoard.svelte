@@ -1,6 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
-  import aMsg from '../components/stores/gameStore'
+  import { aMsg, aMode } from '../components/stores/gameStore'
 
   const minAtk = 4
   const strongAtk = 7
@@ -27,24 +27,16 @@
     },
   }
 
-  export let gameMode
-  /*   let monsterStr
-  let healStr
-  let heals */
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
-  aMsg.set(`Attack to start!`)
   let round = 0
   let endGame = false
   let highScore = 0
   let keyCode
   let battleLogs = []
-
-  let { healStr, monsterStr, heals } = diff[gameMode]
-  /*   function initStart(mode) {
-    ;({ healStr, monsterStr, heals } = diff[mode])
-  } */
+  let { healStr, monsterStr, heals } = diff[$aMode]
+  aMsg.set(`Attack to start!`)
 
   //todo make a chance to change mode
   function reset() {
@@ -56,7 +48,7 @@
     strongAttacks = 3
     round = 0
     aMsg.set('Try harder! Attack!')
-    ;({ healStr, monsterStr, heals } = diff[gameMode])
+    ;({ healStr, monsterStr, heals } = diff[$aMode])
   }
 
   function writeLog(e, atk, hp) {
@@ -119,7 +111,7 @@
     } else if (keyCode === 72) {
       healPlayer()
     } else {
-      aMsg.set(`use H heal, J atk, K fire, R restart`)
+      aMsg.set(`use H heal, J atk, K fire`)
     }
   }
 
@@ -156,14 +148,12 @@
       }
     }
   }
-
-  // initStart(gameMode)
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
 
 <div id="gameBoard" gameMode>
-  <h3>{diff[gameMode].name}</h3>
+  <h3>{diff[$aMode].name}</h3>
   <h2>Round: {round} Best: {highScore}</h2>
   <h3>Monster</h3>
   <div class="progress-bar">
