@@ -1,9 +1,5 @@
 import { writable, derived } from 'svelte/store'
 
-export const msg = writable(`Welcome, please pick a difficulty`)
-
-export const mode = writable(1)
-
 const diff = [
   {
     name: 'easy',
@@ -25,6 +21,9 @@ const diff = [
   },
 ]
 
+export const msg = writable(`Welcome, please pick a difficulty`)
+export const mode = writable(1)
 export const difficulty = derived(mode, ($mode) => diff[$mode])
 
+//todo make battleLogs derived > set.logs
 export const battleLogs = writable([])
