@@ -3,7 +3,7 @@
   export let health
 </script>
 
-<div class="health-bar" name health>
+<div class="health-bar">
   <h3>{name}</h3>
   <div class="progress-bar">
     <h3>{health} ♥</h3>
