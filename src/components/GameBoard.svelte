@@ -1,4 +1,5 @@
 <script>
+  import HealthBar from '../components/HealthBar.svelte'
   import { slide } from 'svelte/transition'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
 
@@ -29,6 +30,7 @@
     ;({ healStr, monsterStr, heals } = $difficulty)
   }
 
+  //todo move write logic into store
   function writeLog(e, atk, hp) {
     let logEvent = {
       event: e,
@@ -73,7 +75,6 @@
     monsterAtk()
   }
 
-  //todo add animations to buttons and key press?
   function handleKeyDown(event) {
     keyCode = event.keyCode
 
@@ -133,19 +134,9 @@
 <div id="gameBoard">
   <h3>{$difficulty.name}</h3>
   <h2>Round: {round} Best: {highScore}</h2>
-  <h3>Monster</h3>
-  <div class="progress-bar">
-    <h3>{monsterHp} ♥</h3>
-    <span style="width: {monsterHp}%" />
-  </div>
-  <br />
 
-  <h3>Player</h3>
-  <div class="progress-bar">
-    <h3>{playerHp} ♥</h3>
-    <span style="width: {playerHp}%" />
-  </div>
-  <br />
+  <HealthBar name="Monster" health={monsterHp} />
+  <HealthBar name="Player" health={playerHp} />
 
   {#if endGame}
     <div class="retry" id="test" transition:slide={{ y: -50 }}>
@@ -162,31 +153,4 @@
 
 <style lang="scss">
   //todo make me look better
-
-  .progress-bar {
-    position: relative;
-    height: 30px;
-    background: #2d3647;
-    border-radius: 5px;
-    overflow: hidden;
-
-    span {
-      position: absolute;
-      left: 0;
-      height: 100%;
-      background: skyblue;
-      transition: width 0.5s ease-out;
-      z-index: 0;
-    }
-
-    h3 {
-      position: relative;
-      margin: 0;
-      padding: 5px 0;
-      display: inline-block;
-      color: white;
-      font-weight: 700;
-      z-index: 99;
-    }
-  }
 </style>
