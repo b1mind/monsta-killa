@@ -19,19 +19,19 @@
   {#if onBoard}
     <div class="difficulty">
       <label>
-        <input type="radio" on:change={setMode} name="gameMode" value="1" /> Easy
+        <input type="radio" on:change={setMode} name="gameMode" value="0" /> Easy
       </label>
       <label>
         <input
           type="radio"
           on:change={setMode}
           name="gameMode"
-          value="2"
+          value="1"
           checked
         /> Normal
       </label>
       <label>
-        <input type="radio" on:change={setMode} name="gameMode" value="3" /> Hard
+        <input type="radio" on:change={setMode} name="gameMode" value="2" /> Hard
       </label>
     </div>
 

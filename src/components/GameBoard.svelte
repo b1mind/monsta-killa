@@ -1,31 +1,10 @@
 <script>
   import { slide } from 'svelte/transition'
-  import { aMsg, aMode } from '../components/stores/gameStore'
+  import { aMsg, aDiff } from '../components/stores/gameStore'
 
   const minAtk = 4
   const strongAtk = 7
   const playerStr = 10
-
-  const diff = {
-    1: {
-      name: 'easy',
-      healStr: 16,
-      monsterStr: 9,
-      heals: 2,
-    },
-    2: {
-      name: 'normal',
-      healStr: 14,
-      monsterStr: 11,
-      heals: 1,
-    },
-    3: {
-      name: 'hard',
-      healStr: 16,
-      monsterStr: 14,
-      heals: 0,
-    },
-  }
 
   let playerHp = 100
   let monsterHp = 100
@@ -35,7 +14,7 @@
   let highScore = 0
   let keyCode
   let battleLogs = []
-  let { healStr, monsterStr, heals } = diff[$aMode]
+  let { healStr, monsterStr, heals } = $aDiff
   aMsg.set(`Attack to start!`)
 
   //todo make a chance to change mode
@@ -48,7 +27,7 @@
     strongAttacks = 3
     round = 0
     aMsg.set('Try harder! Attack!')
-    ;({ healStr, monsterStr, heals } = diff[$aMode])
+    ;({ healStr, monsterStr, heals } = $aDiff)
   }
 
   function writeLog(e, atk, hp) {
@@ -152,8 +131,8 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<div id="gameBoard" gameMode>
-  <h3>{diff[$aMode].name}</h3>
+<div id="gameBoard">
+  <h3>{$aDiff.name}</h3>
   <h2>Round: {round} Best: {highScore}</h2>
   <h3>Monster</h3>
   <div class="progress-bar">

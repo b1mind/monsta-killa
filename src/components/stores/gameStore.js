@@ -1,14 +1,28 @@
-import { writable } from 'svelte/store'
+import { writable, derived } from 'svelte/store'
 
-function changeMsg() {
-  const { subscribe, set } = writable(`Welcome, please pick a difficulty`)
-  return { subscribe, set }
-}
+export const aMsg = writable(`Welcome, please pick a difficulty`)
 
-function changeMode() {
-  const { subscribe, set } = writable(2)
-  return { subscribe, set }
-}
+export const aMode = writable(1)
 
-export const aMsg = changeMsg()
-export const aMode = changeMode()
+const diff = [
+  {
+    name: 'easy',
+    healStr: 16,
+    monsterStr: 9,
+    heals: 2,
+  },
+  {
+    name: 'normal',
+    healStr: 14,
+    monsterStr: 11,
+    heals: 1,
+  },
+  {
+    name: 'hard',
+    healStr: 16,
+    monsterStr: 13,
+    heals: 1,
+  },
+]
+
+export const aDiff = derived(aMode, ($aMode) => diff[$aMode])
