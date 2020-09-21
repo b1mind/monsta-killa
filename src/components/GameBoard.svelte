@@ -1,6 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
-  import { aMsg, aDiff } from '../components/stores/gameStore'
+  import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
 
   const minAtk = 4
   const strongAtk = 7
@@ -13,21 +13,20 @@
   let endGame = false
   let highScore = 0
   let keyCode
-  let battleLogs = []
-  let { healStr, monsterStr, heals } = $aDiff
-  aMsg.set(`Attack to start!`)
+  let { healStr, monsterStr, heals } = $difficulty
+  msg.set(`Attack to start!`)
 
-  //todo make a chance to change mode
+  //todo option to change mode on reset
   function reset() {
     highScore = round >= highScore ? round : highScore
     endGame = false
-    battleLogs = []
+    battleLogs.set([])
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
     round = 0
-    aMsg.set('Try harder! Attack!')
-    ;({ healStr, monsterStr, heals } = $aDiff)
+    msg.set('Try harder! Attack!')
+    ;({ healStr, monsterStr, heals } = $difficulty)
   }
 
   function writeLog(e, atk, hp) {
@@ -36,7 +35,7 @@
       atk: atk,
       hp: hp,
     }
-    battleLogs = [logEvent, ...battleLogs]
+    battleLogs.set([logEvent, ...$battleLogs])
   }
 
   function monsterAtk() {
@@ -52,7 +51,7 @@
 
     if (atkType === 'strong') {
       if (strongAttacks === 0) {
-        aMsg.set('No strong Attacks left')
+        msg.set('No strong Attacks left')
         return
       } else {
         playerAtkDmg += strongAtk
@@ -67,7 +66,7 @@
 
   function healPlayer() {
     const healPwr = Math.ceil(Math.random() * 10 + healStr)
-    if (heals <= 0) return aMsg.set('You are out of heals')
+    if (heals <= 0) return msg.set('You are out of heals')
     playerHp += healPwr
     heals--
     writeLog('player heals', healPwr, playerHp)
@@ -79,7 +78,7 @@
     keyCode = event.keyCode
 
     if (endGame === true) {
-      keyCode === 82 ? reset() : aMsg.set(`press R to reset game`)
+      keyCode === 82 ? reset() : msg.set(`press R to reset game`)
       return
     }
 
@@ -90,20 +89,20 @@
     } else if (keyCode === 72) {
       healPlayer()
     } else {
-      aMsg.set(`use H heal, J atk, K fire`)
+      msg.set(`use H heal, J atk, K fire`)
     }
   }
 
   function endTurn() {
     if (monsterHp <= 0) {
-      aMsg.set(`Player Wins Round ${round}`)
-      battleLogs = []
+      msg.set(`Player Wins Round ${round}`)
+      battleLogs.set([])
       endRound(false)
     } else if (playerHp <= 0) {
-      aMsg.set(`Monster Ate Player, Try Again`)
+      msg.set(`Monster Ate Player, Try Again`)
       endRound(true)
     } else {
-      aMsg.set(`Make your next move`)
+      msg.set(`Make your next move`)
     }
   }
 
@@ -132,7 +131,7 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <div id="gameBoard">
-  <h3>{$aDiff.name}</h3>
+  <h3>{$difficulty.name}</h3>
   <h2>Round: {round} Best: {highScore}</h2>
   <h3>Monster</h3>
   <div class="progress-bar">
@@ -159,10 +158,6 @@
       <button on:click={healPlayer}>Heal {heals}</button>
     </div>
   {/if}
-
-  {#each battleLogs as battleLog}
-    <p>{battleLog.event} | {battleLog.atk}</p>
-  {/each}
 </div>
 
 <style lang="scss">

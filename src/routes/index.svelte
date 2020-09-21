@@ -1,11 +1,12 @@
 <script>
   import GameBoard from '../components/GameBoard.svelte'
-  import { aMsg, aMode } from '../components/stores/gameStore'
+  import Logs from '../components/Logs.svelte'
+  import { msg, mode } from '../components/stores/gameStore'
 
   let onBoard = true
 
   function setMode(e) {
-    aMode.set(e.currentTarget.value)
+    mode.set(e.currentTarget.value)
   }
 
   function playGame() {
@@ -15,7 +16,8 @@
 
 <main>
   <h1 class="headline">Monsta Killa</h1>
-  <p>{$aMsg}</p>
+  <p>{$msg}</p>
+
   {#if onBoard}
     <div class="difficulty">
       <label>
@@ -38,6 +40,7 @@
     <button on:click={playGame}>Play!</button>
   {:else}
     <GameBoard />
+    <Logs />
   {/if}
 </main>
 
