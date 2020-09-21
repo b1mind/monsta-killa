@@ -1,14 +1,10 @@
 <script>
   import GameBoard from '../components/GameBoard.svelte'
   import Logs from '../components/Logs.svelte'
-  import { msg, mode } from '../components/stores/gameStore'
+  import Difficulty from '../components/Difficulty.svelte'
+  import { msg } from '../components/stores/gameStore'
 
   let onBoard = true
-
-  function setMode(e) {
-    mode.set(e.currentTarget.value)
-  }
-
   function playGame() {
     onBoard = false
   }
@@ -19,24 +15,7 @@
   <p>{$msg}</p>
 
   {#if onBoard}
-    <div class="difficulty">
-      <label>
-        <input type="radio" on:change={setMode} name="gameMode" value="0" /> Easy
-      </label>
-      <label>
-        <input
-          type="radio"
-          on:change={setMode}
-          name="gameMode"
-          value="1"
-          checked
-        /> Normal
-      </label>
-      <label>
-        <input type="radio" on:change={setMode} name="gameMode" value="2" /> Hard
-      </label>
-    </div>
-
+    <Difficulty />
     <button on:click={playGame}>Play!</button>
   {:else}
     <GameBoard />
