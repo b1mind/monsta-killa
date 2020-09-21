@@ -1,25 +1,31 @@
-Todo: 
-  ☐ try event delegation for controls
+Logic: 
+  ✔ make hp bars/label a component @done(20-09-20 22:55)
+  ✔ make battlelogs a store @done(20-09-20 22:56)
   ☐ option to change difficulty on reset
-  ✔ store for msg @done(20-09-19 16:51)
-  ☐ Create and use Store: settings,logs,onboard 
-  ☐ write store to local storage for high score and onBoarding
-  ☐ remake design in figma
+  ☐ write store to local storage for high score based on difficulty
   ☐ make css defaults > scss global?
   ☐ start to make purty 
   ☐ clean up unused code
   
+Design:
+  ☐ remake design in figma
+
 Lighthouse:
   ☐ pwa manifest
   ☐ seo meta and title tag
   ☐ all favicons/logos
   
 WishList:
+  ☐ make fire a DOT atk vs strong atk
+  ☐ try event delegation for controls
+  ☐ Create and use Store: settings,onboard 
   ☐ make keypress animate/press buttons
   ☐ make readme.md part of html info btn
   ☐ use cypress to run tests
-
+  ☐ keybind for difficulty and play button?
+    
 Archive:
+  ✔ store for msg @done(20-09-19 16:51) @project(Todo)
   ✔ create and write logs of atks and wins @done(20-09-18 04:16) @project(Todo)
   ✔ started logic for logs @done(20-09-18 01:55) @project(Todo)
   ✘ logic for points and scoring methods @cancelled(20-09-18 04:13) @project(Todo)
