@@ -1,12 +1,13 @@
 <script>
   export let name
   export let health
+  export let atk
 </script>
 
 <div class="health-bar">
   <h3>{name}</h3>
   <div class="progress-bar">
-    <h3>{health} ♥</h3>
+    <h3 data-hp={atk}>{health} ♥</h3>
     <span style="width: {health}%" />
   </div>
   <br />
@@ -37,6 +38,15 @@
       color: white;
       font-weight: 700;
       z-index: 99;
+      &::after {
+        content: '' attr(data-hp);
+        @extend h3;
+        position: absolute;
+        top: -5px;
+        right: 5px;
+        color: red;
+        opacity: 0.75;
+      }
     }
   }
 </style>

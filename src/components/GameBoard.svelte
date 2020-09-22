@@ -1,7 +1,7 @@
 <script>
-  import HealthBar from '../components/HealthBar.svelte'
   import { slide } from 'svelte/transition'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
+  import HealthBar from '../components/HealthBar.svelte'
 
   const minAtk = 4
   const strongAtk = 7
@@ -135,8 +135,17 @@
   <h3>{$difficulty.name}</h3>
   <h2>Round: {round} Best: {highScore}</h2>
 
-  <HealthBar name="Monster" health={monsterHp} />
-  <HealthBar name="Player" health={playerHp} />
+  <HealthBar
+    name="Monster"
+    health={monsterHp}
+    atk={$battleLogs[1] ? $battleLogs[1].atk : ''}
+  />
+
+  <HealthBar
+    name="Player"
+    health={playerHp}
+    atk={$battleLogs[0] ? $battleLogs[0].atk : ''}
+  />
 
   {#if endGame}
     <div class="retry" id="test" transition:slide={{ y: -50 }}>
