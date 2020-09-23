@@ -1,13 +1,11 @@
 Logic: 
-  ✔ make hp bars/label a component @done(20-09-20 22:55)
-  ✔ make battlelogs a store @done(20-09-20 22:56)
   ☐ option to change difficulty on reset
-  ☐ write store to local storage for high score based on difficulty
-  ☐ make css defaults > scss global?
-  ☐ start to make purty 
+  ☐ make highScore based on difficulty
   ☐ clean up unused code
   
-Design:
+Styles:
+  ☐ make css defaults > scss global?
+  ☐ start to make purty 
   ☐ remake design in figma
 
 Lighthouse:
@@ -23,8 +21,12 @@ WishList:
   ☐ make readme.md part of html info btn
   ☐ use cypress to run tests
   ☐ keybind for difficulty and play button?
+  ☐ make blood on char opacity based on hp reversal
     
 Archive:
+  ✔ make hp bars/label a component @done(20-09-20 22:55) @project(Logic)
+  ✔ make battlelogs a store @done(20-09-20 22:56) @project(Logic)
+  ✔ write store to local storage for high score based on difficulty @done(20-09-22 22:39) @project(Logic)
   ✔ store for msg @done(20-09-19 16:51) @project(Todo)
   ✔ create and write logs of atks and wins @done(20-09-18 04:16) @project(Todo)
   ✔ started logic for logs @done(20-09-18 01:55) @project(Todo)
