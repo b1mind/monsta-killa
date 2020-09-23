@@ -9,9 +9,9 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //todo make highScore based on difficulty
-  const saveRound = writable('round', 0)
-  let highScore = JSON.parse(localStorage.round)
+  //todo make it all one key: object?
+  const saveRound = writable($difficulty.name, 0)
+  let highScore = JSON.parse(localStorage.getItem($difficulty.name))
 
   let playerHp = 100
   let monsterHp = 100
