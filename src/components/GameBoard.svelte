@@ -1,5 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
+  import { writable } from 'svelte-persistent-store/dist/local'
   import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
@@ -8,20 +9,23 @@
   const strongAtk = 7
   const playerStr = 10
 
+  //todo make highScore based on difficulty
+  const saveRound = writable('round', 0)
+  let highScore = JSON.parse(localStorage.round)
+
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
   let round = 0
   let endGame = false
-  let highScore = 0
   let keyCode
   let { healStr, monsterStr, heals } = $difficulty
 
   msg.set(`Attack to start!`)
 
-  const atkAnime = (e) => {
+  const atkAnime = (atkId) => {
     gsap.fromTo(
-      e,
+      atkId,
       { duration: 1.25, autoAlpha: 0.9, yPercent: 0, xPercent: 0 },
       { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
     )
@@ -30,6 +34,7 @@
   //todo option to change mode on reset
   function reset() {
     highScore = round >= highScore ? round : highScore
+    saveRound.set(highScore)
     endGame = false
     battleLogs.set([])
     playerHp = 100
@@ -176,5 +181,4 @@
 </div>
 
 <style lang="scss">
-  //todo make me look better
 </style>

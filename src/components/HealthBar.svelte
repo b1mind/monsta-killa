@@ -9,7 +9,7 @@
   <h3>{name}</h3>
   <div class="progress-bar">
     <h3>
-      ♥{health}
+      ♥ {health}
       <div id={atkId} class="atk">{atk}</div>
     </h3>
     <span style="width: {health}%" />
