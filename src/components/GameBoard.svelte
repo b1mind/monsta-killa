@@ -22,8 +22,8 @@
   const atkAnime = (e) => {
     gsap.fromTo(
       e,
-      { duration: 1.25, autoAlpha: 0.9, yPercent: 0 },
-      { autoAlpha: 0, yPercent: -10 } //onComplete: () => monsterAtk()
+      { duration: 1.25, autoAlpha: 0.9, yPercent: 0, xPercent: 0 },
+      { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
     )
   }
 
