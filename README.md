@@ -1,14 +1,17 @@
 # 1M Monsta Killa Game
 
-a game of chance vs monsters
+A turn based game, survive as the monster gets tougher. How many rounds will you survive?
 
 ## Rules
 
 There are no rules, just atk!
 
+## Hints
+
+- Player has min dmg of 4 monster 1, each round you gain +1 strong attack every round and +3 every 5 rounds, bonus heal every 10.
+- Save your strong attacks for finish or end moves.
+- Heals get stronger every 5 rounds, but so do monster attacks!
+
 ## About
 
-- minPlayerAtk is 4dmg while monsters can be 2.
-- every round you replenish 1 strong atk
-- every 5 rounds you get a bonus health, and 3 strong atk, BUT the monster hits harder.
-  more to come
+more to come, this was originally a project in JS course by Max from Academind. I had made different css for it and had added some things. Learning Svelte, and what a better way to learn by refactoring one my first learning projects.
