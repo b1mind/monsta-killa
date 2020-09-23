@@ -19,6 +19,14 @@
 
   msg.set(`Attack to start!`)
 
+  const atkAnime = (e) => {
+    gsap.fromTo(
+      e,
+      { duration: 1.25, autoAlpha: 0.9, yPercent: 0 },
+      { autoAlpha: 0, yPercent: -10 } //onComplete: () => monsterAtk()
+    )
+  }
+
   //todo option to change mode on reset
   function reset() {
     highScore = round >= highScore ? round : highScore
@@ -46,11 +54,7 @@
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
     writeLog('monster attacks', monsterAtkDmg, playerHp)
-    gsap.fromTo(
-      '#monsterAtk',
-      { duration: 1.25, autoAlpha: 0.85 },
-      { autoAlpha: 0 } //onComplete: () => monsterAtk()
-    )
+    atkAnime('#monsterAtk')
     endTurn()
   }
 
@@ -70,11 +74,7 @@
 
     monsterHp -= playerAtkDmg
     writeLog('player attacks', playerAtkDmg, monsterHp)
-    gsap.fromTo(
-      '#playerAtk',
-      { duration: 1.25, autoAlpha: 0.85 },
-      { autoAlpha: 0 } //onComplete: () => monsterAtk()
-    )
+    atkAnime('#playerAtk')
     monsterAtk()
   }
 

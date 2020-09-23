@@ -47,10 +47,10 @@
     .atk {
       @extend h3;
       position: absolute;
-      top: -5px;
+      top: -3px;
       right: -9px;
       color: red;
-      text-shadow: -2px 1px 1.5px black;
+      text-shadow: -1px 1px 1.25px black;
     }
   }
 </style>
