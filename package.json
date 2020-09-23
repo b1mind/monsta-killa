@@ -42,6 +42,7 @@
     "sapper": "^0.28.3",
     "svelte": "^3.17.3",
     "svelte-fa": "^2.1.1",
+    "svelte-persistent-store": "^0.1.4",
     "svelte-preprocess": "^3.9.12"
   }
 }
