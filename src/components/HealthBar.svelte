@@ -2,12 +2,16 @@
   export let name
   export let health
   export let atk
+  export let atkId
 </script>
 
 <div class="health-bar">
   <h3>{name}</h3>
   <div class="progress-bar">
-    <h3 data-hp={atk}>{health} ♥</h3>
+    <h3>
+      ♥{health}
+      <div id={atkId} class="atk">{atk}</div>
+    </h3>
     <span style="width: {health}%" />
   </div>
   <br />
@@ -38,15 +42,15 @@
       color: white;
       font-weight: 700;
       z-index: 99;
-      &::after {
-        content: '' attr(data-hp);
-        @extend h3;
-        position: absolute;
-        top: -5px;
-        right: 5px;
-        color: red;
-        opacity: 0.75;
-      }
+    }
+
+    .atk {
+      @extend h3;
+      position: absolute;
+      top: -5px;
+      right: -9px;
+      color: red;
+      text-shadow: -2px 1px 1.5px black;
     }
   }
 </style>

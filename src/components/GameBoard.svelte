@@ -1,5 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
+  import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
 
@@ -15,6 +16,7 @@
   let highScore = 0
   let keyCode
   let { healStr, monsterStr, heals } = $difficulty
+
   msg.set(`Attack to start!`)
 
   //todo option to change mode on reset
@@ -44,6 +46,11 @@
     const monsterAtkDmg = Math.ceil(Math.random() * monsterStr)
     playerHp -= monsterAtkDmg
     writeLog('monster attacks', monsterAtkDmg, playerHp)
+    gsap.fromTo(
+      '#monsterAtk',
+      { duration: 1.25, autoAlpha: 0.85 },
+      { autoAlpha: 0 } //onComplete: () => monsterAtk()
+    )
     endTurn()
   }
 
@@ -63,11 +70,17 @@
 
     monsterHp -= playerAtkDmg
     writeLog('player attacks', playerAtkDmg, monsterHp)
+    gsap.fromTo(
+      '#playerAtk',
+      { duration: 1.25, autoAlpha: 0.85 },
+      { autoAlpha: 0 } //onComplete: () => monsterAtk()
+    )
     monsterAtk()
   }
 
   function healPlayer() {
     const healPwr = Math.ceil(Math.random() * 10 + healStr)
+
     if (heals <= 0) return msg.set('You are out of heals')
     playerHp += healPwr
     heals--
@@ -137,12 +150,14 @@
 
   <HealthBar
     name="Monster"
+    atkId="playerAtk"
     health={monsterHp}
     atk={$battleLogs[1] ? $battleLogs[1].atk : ''}
   />
 
   <HealthBar
     name="Player"
+    atkId="monsterAtk"
     health={playerHp}
     atk={$battleLogs[0] ? $battleLogs[0].atk : ''}
   />
