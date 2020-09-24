@@ -4,6 +4,8 @@
 
 {#each $battleLogs as battleLog}
   <p>{battleLog.event} | {battleLog.atk}</p>
+{:else}
+  <p>Game Logs</p>
 {/each}
 
 <style lang="scss">

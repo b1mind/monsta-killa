@@ -1,6 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
-  import { writable } from 'svelte-persistent-store/dist/local'
+  import { writable as writeLocal } from 'svelte-persistent-store/dist/local'
   import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
@@ -9,8 +9,8 @@
   const strongAtk = 7
   const playerStr = 10
 
-  //todo make it all one key: object?
-  const saveRound = writable($difficulty.name, 0)
+  //? todo make it all one key: object?
+  const saveRound = writeLocal($difficulty.name, 0)
   let highScore = JSON.parse(localStorage.getItem($difficulty.name))
 
   let playerHp = 100
@@ -23,26 +23,18 @@
 
   msg.set(`Attack to start!`)
 
-  const atkAnime = (atkId) => {
-    gsap.fromTo(
-      atkId,
-      { duration: 1.25, autoAlpha: 0.9, yPercent: 0, xPercent: 0 },
-      { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
-    )
-  }
-
   //todo option to change mode on reset
   function reset() {
     highScore = round >= highScore ? round : highScore
     saveRound.set(highScore)
     endGame = false
-    battleLogs.set([])
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
     round = 0
     msg.set('Try harder! Attack!')
     ;({ healStr, monsterStr, heals } = $difficulty)
+    battleLogs.set([])
   }
 
   //todo move write logic into store
@@ -53,6 +45,14 @@
       hp: hp,
     }
     battleLogs.set([logEvent, ...$battleLogs])
+  }
+
+  function atkAnime(atkId) {
+    gsap.fromTo(
+      atkId,
+      { duration: 1.25, autoAlpha: 0.9, yPercent: 0, xPercent: 0 },
+      { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
+    )
   }
 
   function monsterAtk() {
@@ -89,10 +89,12 @@
     if (heals <= 0) return msg.set('You are out of heals')
     playerHp += healPwr
     heals--
+
     writeLog('player heals', healPwr, playerHp)
     monsterAtk()
   }
 
+  //? todo refactor into switch statement? good use ?
   function handleKeyDown(event) {
     keyCode = event.keyCode
 
@@ -115,10 +117,11 @@
   function endTurn() {
     if (monsterHp <= 0) {
       msg.set(`Player Wins Round ${round}`)
-      battleLogs.set([])
+      writeLog('Player Wins Round', round, playerHp)
       endRound(false)
     } else if (playerHp <= 0) {
       msg.set(`Monster Ate Player, Try Again`)
+      writeLog($msg, round, playerHp)
       endRound(true)
     } else {
       msg.set(`Make your next move`)
@@ -160,6 +163,8 @@
     atk={$battleLogs[1] ? $battleLogs[1].atk : ''}
   />
 
+  <div class="playground">the void</div>
+
   <HealthBar
     name="Player"
     atkId="monsterAtk"
@@ -181,4 +186,9 @@
 </div>
 
 <style lang="scss">
+  .playground {
+    width: 300px;
+    height: 200px;
+    background: black;
+  }
 </style>
