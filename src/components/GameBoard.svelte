@@ -153,14 +153,13 @@
 <svelte:window on:keydown={handleKeyDown} />
 
 <div id="gameBoard">
-  <h3>{$difficulty.name}</h3>
-  <h2>Round: {round} Best: {highScore}</h2>
+  <h2>{$difficulty.name} - Round: {round} Best: {highScore}</h2>
 
   <HealthBar
     name="Monster"
     atkId="playerAtk"
     health={monsterHp}
-    atk={$battleLogs[1] ? $battleLogs[1].atk : ''}
+    atk={$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}
   />
 
   <div class="playground">the void</div>
@@ -169,7 +168,7 @@
     name="Player"
     atkId="monsterAtk"
     health={playerHp}
-    atk={$battleLogs[0] ? $battleLogs[0].atk : ''}
+    atk={$battleLogs[0] ? `-${$battleLogs[0].atk}` : ''}
   />
 
   {#if endGame}

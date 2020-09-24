@@ -48,7 +48,8 @@
       @extend h3;
       position: absolute;
       top: -3px;
-      right: -10px;
+      right: -20px;
+      width: 2rem;
       color: red;
       text-shadow: -1px 1px 1.25px black;
     }
