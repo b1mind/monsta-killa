@@ -148,6 +148,20 @@
       }
     }
   }
+
+  //fixme need a function and extra element/pseudo for heal?
+  //? could use a var for atk hp so you could inject heals?
+  $: isHeal = !$battleLogs[1]
+    ? false
+    : $battleLogs[1].event.includes('heal')
+    ? 'atk-heal'
+    : ''
+
+  $: atkHeal = !$battleLogs[0]
+    ? ''
+    : isHeal
+    ? `+${$battleLogs[1].atk}`
+    : `-${$battleLogs[0].atk}`
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
@@ -167,8 +181,9 @@
   <HealthBar
     name="Player"
     atkId="monsterAtk"
+    atkType={isHeal}
     health={playerHp}
-    atk={$battleLogs[0] ? `-${$battleLogs[0].atk}` : ''}
+    atk={atkHeal}
   />
 
   {#if endGame}

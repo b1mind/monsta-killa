@@ -3,6 +3,7 @@
   export let health
   export let atk
   export let atkId
+  export let atkType = ''
 </script>
 
 <div class="health-bar">
@@ -10,7 +11,7 @@
   <div class="progress-bar">
     <h3>
       ♥ {health}
-      <div id={atkId} class="atk">{atk}</div>
+      <div id={atkId} class="atk {atkType}">{atk}</div>
     </h3>
     <span style="width: {health}%" />
   </div>
@@ -52,6 +53,10 @@
       width: 2rem;
       color: red;
       text-shadow: -1px 1px 1.25px black;
+      &-heal {
+        @extend .atk;
+        color: greenyellow;
+      }
     }
   }
 </style>
