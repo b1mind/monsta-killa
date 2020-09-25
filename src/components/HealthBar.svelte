@@ -6,6 +6,20 @@
   export let atkType = ''
 </script>
 
+<!-- prettier-ignore -->
+<!-- <template lang="pug">
+  .health-bar
+    h3 {name}
+    .progress-bar
+      h3 ❤ {health}
+        div(
+            id="{atkId}"
+            class="atk {atkType}"
+          ) {atk}
+      span(style="width: {health}%")
+    br
+</template> -->
+
 <div class="health-bar">
   <h3>{name}</h3>
   <div class="progress-bar">

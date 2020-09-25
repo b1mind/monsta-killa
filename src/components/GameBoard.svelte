@@ -166,6 +166,27 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
+<!-- prettier-ignore -->
+<!-- <template lang="pug">
+  #gameBoard
+    h2 
+    | {$difficulty.name} - Round: {round} Best: {highScore}
+    HealthBar(
+      name="Monster"
+      atkId="playerAtk"
+      health="{monsterHp}"
+      atk="{$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}"
+    )
+
+    HealthBar(
+      name="Player"
+      atkId="monsterAtk"
+      atkType="{isHeal}"
+      health="{playerHp}"
+      atk="{atkHeal}"
+    )
+
+</template> -->
 <div id="gameBoard">
   <h2>{$difficulty.name} - Round: {round} Best: {highScore}</h2>
 
