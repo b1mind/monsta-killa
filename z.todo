@@ -1,6 +1,8 @@
 Logic: 
   ☐ option to change difficulty on reset
-  ☐ make highScore based on difficulty
+  ✔ make heal hp animation work right check fixme @done(20-09-24 01:34)
+  ☐ update readme make pretty with gifs
+  ✔ make highScore based on difficulty @done(20-09-22 23:22)
   ☐ clean up unused code
   
 Styles:
@@ -10,11 +12,13 @@ Styles:
 
 Lighthouse:
   ☐ pwa manifest
-  ☐ seo meta and title tag
+  ☐ seo and social meta 
+  ✔ title tag in template @done(20-09-23 04:29)
   ☐ all favicons/logos
   
 WishList:
   ☐ make fire a DOT atk vs strong atk
+  ☐ make sure the heal check for hp animation is good
   ☐ try event delegation for controls
   ☐ Create and use Store: settings,onboard 
   ☐ make keypress animate/press buttons
