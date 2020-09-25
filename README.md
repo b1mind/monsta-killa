@@ -1,6 +1,6 @@
 # 1M Monsta Killa Game
 
-A turn based game, survive as the monster gets tougher. How many rounds will you survive?
+A turn based game, win each round as the monsters gets tougher. How many rounds will you survive??
 
 ## Rules
 
