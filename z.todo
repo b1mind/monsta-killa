@@ -1,8 +1,6 @@
 Logic: 
   ☐ option to change difficulty on reset
-  ✔ make heal hp animation work right check fixme @done(20-09-24 01:34)
   ☐ update readme make pretty with gifs
-  ✔ make highScore based on difficulty @done(20-09-22 23:22)
   ☐ clean up unused code
   
 Styles:
@@ -13,7 +11,6 @@ Styles:
 Lighthouse:
   ☐ pwa manifest
   ☐ seo and social meta 
-  ✔ title tag in template @done(20-09-23 04:29)
   ☐ all favicons/logos
   
 WishList:
@@ -28,6 +25,9 @@ WishList:
   ☐ make blood on char opacity based on hp reversal
     
 Archive:
+  ✔ make heal hp animation work right check fixme @done(20-09-24 01:34) @project(Logic)
+  ✔ make highScore based on difficulty @done(20-09-22 23:22) @project(Logic)
+  ✔ title tag in template @done(20-09-23 04:29) @project(Lighthouse)
   ✔ make hp bars/label a component @done(20-09-20 22:55) @project(Logic)
   ✔ make battlelogs a store @done(20-09-20 22:56) @project(Logic)
   ✔ write store to local storage for high score based on difficulty @done(20-09-22 22:39) @project(Logic)
