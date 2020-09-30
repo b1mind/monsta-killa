@@ -6,7 +6,7 @@ import * as sapper from '@sapper/server'
 const { PORT, NODE_ENV } = process.env
 const dev = NODE_ENV === 'development'
 
-const baseUrl = 'monsta-killa'
+const baseUrl = '/monsta-killa/'
 // const url = !dev ? baseUrl : '/'
 const url = process.argv[1].includes('build') ? baseUrl : '/'
 
