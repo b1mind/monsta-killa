@@ -4,6 +4,7 @@
   import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
+  import GameWindow from './GameWindow.svelte'
 
   const minAtk = 4
   const strongAtk = 7
@@ -149,8 +150,6 @@
     }
   }
 
-  //fixme need a function and extra element/pseudo for heal?
-  //? could use a var for atk hp so you could inject heals?
   $: isHeal = !$battleLogs[1]
     ? false
     : $battleLogs[1].event.includes('heal')
@@ -166,29 +165,8 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<!-- prettier-ignore -->
-<!-- <template lang="pug">
-  #gameBoard
-    h2 
-    | {$difficulty.name} - Round: {round} Best: {highScore}
-    HealthBar(
-      name="Monster"
-      atkId="playerAtk"
-      health="{monsterHp}"
-      atk="{$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}"
-    )
-
-    HealthBar(
-      name="Player"
-      atkId="monsterAtk"
-      atkType="{isHeal}"
-      health="{playerHp}"
-      atk="{atkHeal}"
-    )
-
-</template> -->
 <div id="gameBoard">
-  <h2>{$difficulty.name} - Round: {round} Best: {highScore}</h2>
+  <div>{$difficulty.name} - Round: {round} Best: {highScore}</div>
 
   <HealthBar
     name="Monster"
@@ -197,7 +175,7 @@
     atk={$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}
   />
 
-  <div class="playground">the void</div>
+  <GameWindow />
 
   <HealthBar
     name="Player"
@@ -221,9 +199,4 @@
 </div>
 
 <style lang="scss">
-  .playground {
-    width: 300px;
-    height: 200px;
-    background: black;
-  }
 </style>
