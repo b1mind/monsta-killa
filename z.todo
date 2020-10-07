@@ -1,6 +1,7 @@
 Logic: 
   ☐ option to change difficulty on reset
-  ☐ update readme make pretty with gifs
+  ☐ create a custom store for local storage and ditch the lib
+  ☐ animate the hp bars with gsap
   ☐ clean up unused code
   
 Styles:
@@ -9,11 +10,14 @@ Styles:
   ☐ remake design in figma
 
 Lighthouse:
-  ☐ pwa manifest
+  ✔ pwa manifest @done(20-09-30 14:14)
+  ☐ service-workers currently point to bad baseUrl (sapper pr coming)
+  ☐ make sure to make maskable icon.
   ☐ seo and social meta 
-  ☐ all favicons/logos
+  ☐ make and change all favicons/logos
   
 WishList:
+  ☐ update readme make pretty with gifs
   ☐ make fire a DOT atk vs strong atk
   ☐ make sure the heal check for hp animation is good
   ☐ try event delegation for controls
