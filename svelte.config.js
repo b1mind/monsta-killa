@@ -1,28 +1,24 @@
 const sveltePreprocess = require('svelte-preprocess')
 
-const preprocess = sveltePreprocess({
-  javascript: true,
-  scss: true,
-  pug: true,
-  postcss: true,
-})
-
-/* let onwarn = (warning, handler) => {
-  if (warning == warning.message.includes('Unused CSS selector'))
-   return 
-  if (warning == 'Unused CSS selector') 
-    return
-  handler(warning)
-} */
-
-const onwarn = (warning, onwarn) => {
-  if (warning.code === 'CIRCULAR_DEPENDENCY' && /[/\\]@sapper[/\\]/.test(warning.message)) return true
-  if (warning.message == 'Unused CSS selector') return
-  return onwarn(warning)
-}
+const createPreprocess = () => [
+  sveltePreprocess({
+    scss: true,
+    pug: true,
+    postcss: {
+      plugins: [
+        require('postcss-combine-media-query'),
+        require('autoprefixer')({
+          grid: 'autoplace',
+          overrideBrowserslist: ['> 1%', 'last 2 versions', 'ie >= 11'],
+        }),
+      ]
+    }
+  }),
+  // you could add other pre processors like mdsvex
+]
 
 module.exports = {
-  preprocess: preprocess,
-  onwarn,
-  // ...other svelte options
+  createPreprocess,
+  // options for svelte-check extension
+  preprocess: createPreprocess(),
 }
