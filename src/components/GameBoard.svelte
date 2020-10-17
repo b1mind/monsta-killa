@@ -1,19 +1,17 @@
 <script>
   import { slide } from 'svelte/transition'
-  import { writable as writeLocal } from 'svelte-persistent-store/dist/local'
   import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
   import GameWindow from './GameWindow.svelte'
+  import Logs from '../components/Logs.svelte'
 
-  const minAtk = 4
-  const strongAtk = 7
-  const playerStr = 10
+  const minAtk = 5
+  const strongAtk = 8
+  const playerStr = 11
+  const savedScore = JSON.parse(localStorage.getItem($difficulty.name))
 
-  //? todo make it all one key: object?
-  const saveRound = writeLocal($difficulty.name, 0)
-  let highScore = JSON.parse(localStorage.getItem($difficulty.name))
-
+  let highScore = !savedScore ? 0 : savedScore
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
@@ -27,7 +25,8 @@
   //todo option to change mode on reset
   function reset() {
     highScore = round >= highScore ? round : highScore
-    saveRound.set(highScore)
+    localStorage.setItem($difficulty.name, highScore)
+    // saveRound.set(highScore)
     endGame = false
     playerHp = 100
     monsterHp = 100
@@ -51,7 +50,7 @@
   function atkAnime(atkId) {
     gsap.fromTo(
       atkId,
-      { duration: 1.25, autoAlpha: 0.9, yPercent: 0, xPercent: 0 },
+      { duration: 1.25, autoAlpha: 1, yPercent: 0, xPercent: 0 },
       { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
     )
   }
@@ -163,27 +162,27 @@
     : `-${$battleLogs[0].atk}`
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window on:keydown|preventDefault={handleKeyDown} />
 
 <div id="gameBoard">
-  <div>{$difficulty.name} - Round: {round} Best: {highScore}</div>
+  <div class="windowWrap">
+    <HealthBar
+      name="Monster"
+      atkId="playerAtk"
+      health={monsterHp}
+      atk={$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}
+    />
 
-  <HealthBar
-    name="Monster"
-    atkId="playerAtk"
-    health={monsterHp}
-    atk={$battleLogs[1] ? `-${$battleLogs[1].atk}` : ''}
-  />
+    <GameWindow />
 
-  <GameWindow />
-
-  <HealthBar
-    name="Player"
-    atkId="monsterAtk"
-    atkType={isHeal}
-    health={playerHp}
-    atk={atkHeal}
-  />
+    <HealthBar
+      name="Player"
+      atkId="monsterAtk"
+      atkType={isHeal}
+      health={playerHp}
+      atk={atkHeal}
+    />
+  </div>
 
   {#if endGame}
     <div class="retry" id="test" transition:slide={{ y: -50 }}>
@@ -196,7 +195,15 @@
       <button on:click={healPlayer}>Heal {heals}</button>
     </div>
   {/if}
+
+  <div class="round">{$difficulty.name} - Round: {round} Best: {highScore}</div>
+  <Logs />
 </div>
 
 <style lang="scss">
+  .windowWrap {
+    padding: 1rem;
+    background: var(--clr-dark);
+    box-shadow: var(--shadow-inner);
+  }
 </style>
