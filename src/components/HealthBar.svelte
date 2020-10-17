@@ -4,29 +4,24 @@
   export let atk
   export let atkId
   export let atkType = ''
-</script>
 
-<!-- prettier-ignore -->
-<!-- <template lang="pug">
-  .health-bar
-    h3 {name}
-    .progress-bar
-      h3 ❤ {health}
-        div( id="{atkId}" class="atk {atkType}") {atk}
-      span(style="width: {health}%")
-    br
-</template> -->
+  $: hpBarColor =
+    health >= 50 ? '--clr-green' : health > 25 ? '--clr-orange' : '--clr-red'
+</script>
 
 <div class="health-bar">
   <div>{name}</div>
+
   <div class="progress-bar">
     <h3>
       ♥
       {health}
       <div id={atkId} class="atk {atkType}">{atk}</div>
     </h3>
-    <span style="width: {health}%" />
+
+    <span style="width: {health}%; background: var({hpBarColor});" />
   </div>
+
   <br />
 </div>
 
@@ -34,15 +29,15 @@
   .progress-bar {
     position: relative;
     height: 30px;
-    background: #2d3647;
+    background: var(--clr-secondary);
     border-radius: 5px;
+    box-shadow: var(--shadow-outer);
     overflow: hidden;
 
     span {
       position: absolute;
       left: 0;
       height: 100%;
-      background: skyblue;
       transition: width 0.5s ease-out;
       z-index: 0;
     }
@@ -63,11 +58,11 @@
       top: -3px;
       right: -20px;
       width: 2rem;
-      color: red;
+      color: var(--clr-red);
       text-shadow: -1px 1px 1.25px black;
       &-heal {
         @extend .atk;
-        color: greenyellow;
+        color: var(--clr-green);
       }
     }
   }
