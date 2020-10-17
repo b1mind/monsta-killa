@@ -4,17 +4,16 @@
   import Difficulty from '../components/Difficulty.svelte'
   import { msg } from '../components/stores/gameStore'
 
-  let onBoard = true
+  let isOnBoard = true
   function playGame() {
-    onBoard = false
+    isOnBoard = false
   }
 </script>
 
 <main>
-  <h1 class="headline">Monsta Killa</h1>
-  <p>{$msg}</p>
+  <div class="msg">{$msg}</div>
 
-  {#if onBoard}
+  {#if isOnBoard}
     <Difficulty />
     <button on:click={playGame}>Play!</button>
   {:else}
@@ -25,13 +24,15 @@
 
 <style lang="scss">
   main {
-    max-width: 340px;
-    margin: 0 auto;
-    font-family: sans-serif;
     text-align: center;
   }
 
-  .headline {
-    color: skyblue;
+  .msg {
+    margin: 0.5rem 1rem;
+    padding: 0.5rem 0;
+    color: var(--clr-white);
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: var(--shadow-inner);
   }
 </style>

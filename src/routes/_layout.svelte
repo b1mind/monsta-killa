@@ -3,21 +3,21 @@
   export let segment
 </script>
 
-<Nav {segment} />
+<header>
+  <h1 class="headline">monstaKilla</h1>
+  <Nav {segment} />
+</header>
 
-<main>
+<div class="main-wrap">
   <slot />
-</main>
+</div>
 
 <!-- <Footer /> -->
 <style lang="scss">
-  main {
-    position: relative;
-    max-width: 56em;
-    background-color: white;
-    padding: 0 2rem;
+  .headline {
+    max-width: 340px;
     margin: 0 auto;
-    box-sizing: border-box;
-    overflow: hidden;
+    padding: 0 4px;
+    font-size: 1.5rem;
   }
 </style>
