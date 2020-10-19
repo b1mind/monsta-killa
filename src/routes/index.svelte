@@ -1,34 +1,30 @@
 <script>
   import GameBoard from '../components/GameBoard.svelte'
-  import Logs from '../components/Logs.svelte'
   import Difficulty from '../components/Difficulty.svelte'
-  import { msg } from '../components/stores/gameStore'
-
-  let isOnBoard = true
-  function playGame() {
-    isOnBoard = false
-  }
+  import { msg, isOnBoard } from '../components/stores/gameStore'
 </script>
 
 <main>
   <div class="msg">{$msg}</div>
 
-  {#if isOnBoard}
-    <Difficulty />
-    <button on:click={playGame}>Play!</button>
+  {#if $isOnBoard}
+    <div class="logo" />
   {:else}
     <GameBoard />
-    <Logs />
   {/if}
+  <Difficulty />
 </main>
 
 <style lang="scss">
   main {
+    max-width: 400px;
+    margin: 0 auto;
+    font-family: sans-serif;
     text-align: center;
   }
 
   .msg {
-    margin: 0.5rem 1rem;
+    margin: 0.5rem;
     padding: 0.5rem 0;
     color: var(--clr-white);
     font-weight: bold;

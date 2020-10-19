@@ -1,5 +1,4 @@
 <script>
-  import { slide } from 'svelte/transition'
   import gsap from 'gsap'
   import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
@@ -26,7 +25,6 @@
   function reset() {
     highScore = round >= highScore ? round : highScore
     localStorage.setItem($difficulty.name, highScore)
-    // saveRound.set(highScore)
     endGame = false
     playerHp = 100
     monsterHp = 100
@@ -50,8 +48,8 @@
   function atkAnime(atkId) {
     gsap.fromTo(
       atkId,
-      { duration: 1.25, autoAlpha: 1, yPercent: 0, xPercent: 0 },
-      { autoAlpha: 0, yPercent: -20, xPercent: 15, ease: 'power1.out' } //onComplete: () => monsterAtk()
+      { duration: 1, autoAlpha: 1, y: 0, x: 0 },
+      { autoAlpha: 0, y: -5, x: 5, ease: 'power1.out' } //onComplete: () => monsterAtk()
     )
   }
 
@@ -184,20 +182,28 @@
     />
   </div>
 
-  {#if endGame}
-    <div class="retry" id="test" transition:slide={{ y: -50 }}>
-      <button on:click={reset}>Retry</button>
-    </div>
-  {:else if !endGame}
-    <div class="controls" transition:slide={{ y: -50 }}>
-      <button on:click={playerAtk}>Attack </button>
-      <button on:click={() => playerAtk('strong')}>Fire {strongAttacks}</button>
-      <button on:click={healPlayer}>Heal {heals}</button>
-    </div>
-  {/if}
+  <div class="controls">
+    <Logs />
 
+    {#if endGame}
+      <button id="retry" on:click={reset}> Retry </button>
+    {:else if !endGame}
+      <div class="aWrap">
+        <span class="count">{strongAttacks}</span>
+        <button id="btn-strong" on:pointerdown={() => playerAtk('strong')}>
+          F
+        </button>
+      </div>
+
+      <div class="hWrap">
+        <button id="btn-heal" on:pointerdown={healPlayer}>H</button>
+        <span class="count">{heals}</span>
+      </div>
+
+      <button id="btn-atk" on:pointerdown={playerAtk}>A</button>
+    {/if}
+  </div>
   <div class="round">{$difficulty.name} - Round: {round} Best: {highScore}</div>
-  <Logs />
 </div>
 
 <style lang="scss">
@@ -205,5 +211,76 @@
     padding: 1rem;
     background: var(--clr-dark);
     box-shadow: var(--shadow-inner);
+  }
+
+  button {
+    min-width: 45px;
+    min-height: 45px;
+    color: var(--clr-light);
+    background: var(--clr-secondary);
+    border: none;
+    border-radius: 50%;
+    box-shadow: var(--shadow-outer);
+    outline: transparent;
+    z-index: 2;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    &:active {
+      box-shadow: var(--shadow-inner);
+    }
+  }
+
+  .controls {
+    margin-top: 8px;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0 10px;
+    box-shadow: var(--shadow-inner);
+  }
+
+  .aWrap,
+  .hWrap {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .aWrap {
+    justify-self: end;
+  }
+
+  .count {
+    width: 40px;
+    height: 40px;
+    margin: 0 -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bolder;
+    background: var(--clr-dark);
+    border-radius: 50%;
+    box-shadow: var(--shadow-inner);
+    z-index: 1;
+  }
+
+  #btn-atk {
+    width: 80px;
+    height: 80px;
+    grid-column: 3/4;
+    grid-row: 1 / span 2;
+    align-self: center;
+    justify-self: center;
+    font-size: 2.5rem;
+  }
+
+  #retry {
+    @extend #btn-atk;
+    width: max-content;
+    height: max-content;
+    margin-right: 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
   }
 </style>
