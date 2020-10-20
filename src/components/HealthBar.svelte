@@ -10,8 +10,6 @@
 </script>
 
 <div class="health-bar">
-  <div>{name}</div>
-
   <div class="progress-bar">
     <h3>
       ♥
@@ -19,10 +17,12 @@
       <div id={atkId} class="atk {atkType}">{atk}</div>
     </h3>
 
-    <span style="width: {health}%; background: var({hpBarColor});" />
+    <span
+      style="transform: scaleX({health * 0.01}); background: var({hpBarColor});"
+    />
   </div>
 
-  <br />
+  <div>{name}</div>
 </div>
 
 <style lang="scss">
@@ -38,7 +38,9 @@
       position: absolute;
       left: 0;
       height: 100%;
-      transition: width 0.5s ease-out;
+      width: 100%;
+      transform-origin: left;
+      transition: transform 0.75s ease-out;
       z-index: 0;
     }
 
@@ -49,6 +51,7 @@
       display: inline-block;
       color: white;
       font-weight: 700;
+      text-shadow: -1px 1px 1.25px black;
       z-index: 99;
     }
 

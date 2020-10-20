@@ -19,5 +19,6 @@
     margin: 0 auto;
     padding: 0 4px;
     font-size: 1.5rem;
+    font-weight: bold;
   }
 </style>
