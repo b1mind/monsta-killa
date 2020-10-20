@@ -1,5 +1,17 @@
 <script>
-  import { mode, isOnBoard } from '../components/stores/gameStore'
+  import { onMount } from 'svelte'
+
+  import {
+    mode,
+    isOnBoard,
+    difficulty,
+    savedScore,
+    round,
+  } from '../components/stores/gameStore'
+
+  onMount(() => {
+    $savedScore = JSON.parse(localStorage.getItem($difficulty.name))
+  })
 
   function setMode(e) {
     mode.set(e.currentTarget.value)
@@ -10,26 +22,74 @@
   }
 </script>
 
-<button on:click={playGame}>Play!</button>
-<div class="difficulty">
-  <label>
-    <input type="radio" on:change={setMode} name="gameMode" value="0" />
-    Easy
-  </label>
+<footer class="wrap">
+  {#if $isOnBoard}
+    <button on:click={playGame}>Enter</button>
 
-  <label>
-    <input type="radio" on:change={setMode} name="gameMode" value="1" checked />
-    Normal
-  </label>
+    <div class="difficulty">
+      <label>
+        <input type="radio" on:change={setMode} name="gameMode" value="0" />
+        Easy
+      </label>
 
-  <label>
-    <input type="radio" on:change={setMode} name="gameMode" value="2" />
-    Hard
-  </label>
-</div>
+      <label>
+        <input
+          type="radio"
+          on:change={setMode}
+          name="gameMode"
+          value="1"
+          checked
+        />
+        Normal
+      </label>
+
+      <label>
+        <input type="radio" on:change={setMode} name="gameMode" value="2" />
+        Hard
+      </label>
+    </div>
+  {:else}
+    <button disabled class="diffName">{$difficulty.name}</button>
+
+    <div class="rounds">Best: {$savedScore} Round: {$round}</div>
+  {/if}
+</footer>
 
 <style lang="scss">
   .difficulty {
-    margin: 10px 0;
+    padding: 6px 50px 6px 0;
+    background: var(--clr-dark);
+    border-radius: 5px;
+    box-shadow: var(--shadow-inner);
+  }
+
+  .rounds {
+    @extend .difficulty;
+    background: var(--clr);
+  }
+
+  button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 1rem;
+    color: var(--clr-white);
+    font-weight: bolder;
+    background: var(--clr);
+    border: none;
+    border-radius: 5px;
+    box-shadow: var(--shadow-outer);
+  }
+
+  .diffName {
+    @extend button;
+    left: 0;
+    right: auto;
+    cursor: default;
+  }
+
+  footer {
+    position: relative;
+    margin: 10px 0.5rem 0 0.5rem;
   }
 </style>

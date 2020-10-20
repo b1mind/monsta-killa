@@ -23,6 +23,9 @@ const diff = [
 
 export const msg = writable(`Welcome, please pick a difficulty`)
 export const mode = writable(1)
+export const savedScore = writable(0)
+export const round = writable(0)
+export const isOnBoard = writable(true)
 export const difficulty = derived(mode, ($mode) => diff[$mode])
 
 //todo make battleLogs derived > set.logs

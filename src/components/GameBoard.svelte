@@ -1,6 +1,12 @@
 <script>
   import gsap from 'gsap'
-  import { msg, difficulty, battleLogs } from '../components/stores/gameStore'
+  import {
+    msg,
+    difficulty,
+    battleLogs,
+    savedScore,
+    round,
+  } from '../components/stores/gameStore'
   import HealthBar from '../components/HealthBar.svelte'
   import GameWindow from './GameWindow.svelte'
   import Logs from '../components/Logs.svelte'
@@ -8,13 +14,12 @@
   const minAtk = 5
   const strongAtk = 8
   const playerStr = 11
-  const savedScore = JSON.parse(localStorage.getItem($difficulty.name))
 
-  let highScore = !savedScore ? 0 : savedScore
+  let highScore = !$savedScore ? 0 : $savedScore
   let playerHp = 100
   let monsterHp = 100
   let strongAttacks = 3
-  let round = 0
+  $round = 0
   let endGame = false
   let keyCode
   let { healStr, monsterStr, heals } = $difficulty
@@ -23,13 +28,13 @@
 
   //todo option to change mode on reset
   function reset() {
-    highScore = round >= highScore ? round : highScore
+    highScore = $round >= highScore ? $round : highScore
     localStorage.setItem($difficulty.name, highScore)
     endGame = false
     playerHp = 100
     monsterHp = 100
     strongAttacks = 3
-    round = 0
+    $round = 0
     msg.set('Try harder! Attack!')
     ;({ healStr, monsterStr, heals } = $difficulty)
     battleLogs.set([])
@@ -114,12 +119,12 @@
 
   function endTurn() {
     if (monsterHp <= 0) {
-      msg.set(`Player Wins Round ${round}`)
-      writeLog('Player Wins Round', round, playerHp)
+      msg.set(`Player Wins Round ${$round}`)
+      writeLog('Player Wins Round', $round, playerHp)
       endRound(false)
     } else if (playerHp <= 0) {
       msg.set(`Monster Ate Player, Try Again`)
-      writeLog($msg, round, playerHp)
+      writeLog($msg, $round, playerHp)
       endRound(true)
     } else {
       msg.set(`Make your next move`)
@@ -130,18 +135,18 @@
     if (end) {
       return (endGame = true)
     } else {
-      round++
+      $round++
       playerHp = 100
       monsterHp = 100
       strongAttacks >= 9 ? false : strongAttacks++
 
-      if (round % 5 === 0) {
+      if ($round % 5 === 0) {
         monsterStr++
         strongAttacks >= 9 ? false : (strongAttacks += 2)
         healStr += 10
       }
 
-      if (round % 10 === 0) {
+      if ($round % 10 === 0) {
         heals++
       }
     }
@@ -190,20 +195,27 @@
     {:else if !endGame}
       <div class="aWrap">
         <span class="count">{strongAttacks}</span>
-        <button id="btn-strong" on:pointerdown={() => playerAtk('strong')}>
+        <button
+          id="btn-strong"
+          disabled={strongAttacks <= 0}
+          on:pointerdown={() => playerAtk('strong')}
+        >
           F
         </button>
       </div>
 
       <div class="hWrap">
-        <button id="btn-heal" on:pointerdown={healPlayer}>H</button>
+        <button
+          id="btn-heal"
+          disabled={heals <= 0}
+          on:pointerdown={healPlayer}
+        >H</button>
         <span class="count">{heals}</span>
       </div>
 
       <button id="btn-atk" on:pointerdown={playerAtk}>A</button>
     {/if}
   </div>
-  <div class="round">{$difficulty.name} - Round: {round} Best: {highScore}</div>
 </div>
 
 <style lang="scss">
@@ -227,6 +239,9 @@
     cursor: pointer;
     &:active {
       box-shadow: var(--shadow-inner);
+    }
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 
@@ -280,6 +295,7 @@
     width: max-content;
     height: max-content;
     margin-right: 1rem;
+    grid-column: 2/4;
     font-size: 1rem;
     border-radius: 5px;
   }
