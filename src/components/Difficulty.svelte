@@ -1,6 +1,4 @@
 <script>
-  import { onMount } from 'svelte'
-
   import {
     mode,
     isOnBoard,
@@ -9,16 +7,13 @@
     round,
   } from '../components/stores/gameStore'
 
-  onMount(() => {
-    $savedScore = JSON.parse(localStorage.getItem($difficulty.name))
-  })
-
   function setMode(e) {
     mode.set(e.currentTarget.value)
   }
 
   function playGame() {
     $isOnBoard = false
+    $savedScore = JSON.parse(localStorage.getItem($difficulty.name))
   }
 </script>
 
@@ -51,7 +46,12 @@
   {:else}
     <button disabled class="diffName">{$difficulty.name}</button>
 
-    <div class="rounds">Best: {$savedScore} Round: {$round}</div>
+    <div class="rounds">
+      Best:
+      {$savedScore === null ? 0 : $savedScore}
+      Round:
+      {$round}
+    </div>
   {/if}
 </footer>
 
