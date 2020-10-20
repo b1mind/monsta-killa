@@ -1,22 +1,25 @@
 Logic: 
+  ☐ hpBar title with custom slots for top or under position
+  ☐ bring in font awsome icons or make own
   ☐ option to change difficulty on reset
-  ☐ create a custom store for local storage and ditch the lib
   ☐ animate the hp bars with gsap
   ☐ clean up unused code
-  
+  ☐ refactor store to use less objects and more derived stores.
+
 Styles:
   ☐ make css defaults > scss global?
-  ☐ start to make purty 
-  ☐ remake design in figma
+  ☐ style logs and difficulty components more
+  ☐ custom logos
 
 Lighthouse:
-  ✔ pwa manifest @done(20-09-30 14:14)
+  ☐ Sapper fix for service-workers
   ☐ service-workers currently point to bad baseUrl (sapper pr coming)
   ☐ make sure to make maskable icon.
   ☐ seo and social meta 
   ☐ make and change all favicons/logos
-  
+
 WishList:
+  ☐ make desktop and mobile landscape media query for controls on right/left
   ☐ update readme make pretty with gifs
   ☐ make fire a DOT atk vs strong atk
   ☐ make sure the heal check for hp animation is good
@@ -25,10 +28,18 @@ WishList:
   ☐ make keypress animate/press buttons
   ☐ make readme.md part of html info btn
   ☐ use cypress to run tests
-  ☐ keybind for difficulty and play button?
+  ☐ keybind for difficulty and play button? global keybinds?
   ☐ make blood on char opacity based on hp reversal
-    
+
 Archive:
+  ✔ remake design in figma @done(20-10-20 01:42) @project(Styles)
+  ✔ add some utility style methods @done(20-10-20 01:43) @project(Styles)
+  ✔ start styles based on figma design @done(20-10-20 01:44) @project(Styles)
+  ✔ combine round into difficulty in one root component @done(20-10-20 01:41) @project(Logic)
+  ✔ change hp bar color on value percent @done(20-10-17 00:29) @project(Logic)
+  ✔ local storage store, do without lib? @done(20-10-17 00:29) @project(Fixme)
+  ✔ start to make purty @done(20-10-17 00:14) @project(Styles)
+  ✔ pwa manifest @done(20-09-30 14:14) @project(Lighthouse)
   ✔ make heal hp animation work right check fixme @done(20-09-24 01:34) @project(Logic)
   ✔ make highScore based on difficulty @done(20-09-22 23:22) @project(Logic)
   ✔ title tag in template @done(20-09-23 04:29) @project(Lighthouse)
